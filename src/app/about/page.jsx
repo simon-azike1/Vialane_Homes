@@ -93,24 +93,25 @@ export default function AboutPage() {
       {/* ════════════════════════════════════════
           HERO — Cinematic & Editorial
           ════════════════════════════════════════ */}
-       <section style={{ 
-         position: 'relative', 
-         background: 'url("https://images.unsplash.com/photo-1597212618440-806262de4f6b?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat', 
-         padding: '200px 0 100px',
-         overflow: 'hidden',
-       }}>
-  {/* Dark overlay for text readability */}
-  <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
+      <section style={{ 
+        position: 'relative', 
+        background: 'url("https://images.unsplash.com/photo-1597212618440-806262de4f6b?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat', 
+        padding: 'clamp(120px, 20vw, 200px) 0 clamp(60px, 10vw, 100px)',
+        overflow: 'hidden',
+        minHeight: '60vh',
+      }}>
+        {/* Dark overlay for text readability */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.4)' }} />
         
-         {/* Hero Content */}
-         <div className="container" style={{ 
-           position: 'relative', 
-           zIndex: 2, 
-           maxWidth: 1260, 
-           margin: '0 auto', 
-           padding: '0 48px',
-           width: '100%',
-         }}>
+        {/* Hero Content */}
+        <div className="container" style={{ 
+          position: 'relative', 
+          zIndex: 2, 
+          maxWidth: 1260, 
+          margin: '0 auto', 
+          padding: '0 clamp(16px, 3vw, 48px)',
+          width: '100%',
+        }}>
           <RV delay={0.1}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
               <span style={{ width: 40, height: 1, background: GOLD, display: 'block' }} />
@@ -124,7 +125,7 @@ export default function AboutPage() {
               fontWeight: 700, 
               lineHeight: 1.05,
               color: WHITE,
-              fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
+              fontSize: 'clamp(2rem, 6vw, 5.5rem)',
               maxWidth: 800,
               marginBottom: 24,
               marginTop: 30
@@ -137,7 +138,7 @@ export default function AboutPage() {
           
           <RV delay={0.3}>
             <p style={{
-              fontSize: '1.15rem',
+              fontSize: 'clamp(1rem, 2vw, 1.15rem)',
               lineHeight: 1.8,
               color: 'rgba(255,255,255,0.6)',
               maxWidth: 560,
@@ -153,7 +154,7 @@ export default function AboutPage() {
           <RV delay={0.4}>
             <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <WaBtn 
-href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Vialane%20Homes">
+                href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Vialane%20Homes">
                 Chat With Us
               </WaBtn>
               <a href="#story" style={{
@@ -175,9 +176,9 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
           TRUST BAR — Stats
           ════════════════════════════════════════ */}
       <section style={{ background: WHITE, padding: '48px 0', borderBottom: '1px solid rgba(15,30,60,0.06)' }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px' }}>
+        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)' }}>
           <RV>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32, textAlign: 'center' }}>
               {[
                 { num: '24/7', label: 'Availability' },
                 { num: '<2hr', label: 'Response Time' },
@@ -185,7 +186,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                 { num: '21%', label: 'Net Annual ROI' },
               ].map((s, i) => (
                 <div key={i} style={{ borderRight: i < 3 ? '1px solid rgba(15,30,60,0.08)' : 'none' }}>
-                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '2rem', fontWeight: 700, color: NAVY, marginBottom: 4 }}>{s.num}</div>
+                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, color: NAVY, marginBottom: 4 }}>{s.num}</div>
                   <div style={{ fontSize: '.75rem', color: INKMU, textTransform: 'uppercase', letterSpacing: '.12em', fontWeight: 500 }}>{s.label}</div>
                 </div>
               ))}
@@ -197,9 +198,9 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
       {/* ════════════════════════════════════════
           FOUNDER STORY — Asymmetric Editorial
           ════════════════════════════════════════ */}
-      <section id="story" style={{ padding: '120px 0', background: CREAMOF }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 80, alignItems: 'start' }}>
+      <section id="story" style={{ padding: 'clamp(60px, 12vw, 120px) 0', background: CREAMOF }}>
+        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)' }}>
+          <div className="two-col" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(40px, 8vw, 80px)', alignItems: 'start' }}>
             
             {/* Left Column — Image with accent */}
             <RV>
@@ -211,7 +212,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                   left: 24, 
                   right: -24, 
                   bottom: -24, 
-                  border: '1px solid GOLD', 
+                  border: `1px solid ${GOLD}`, 
                   borderRadius: 2,
                   zIndex: 0,
                 }} />
@@ -219,7 +220,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                 <div style={{ 
                   position: 'relative', 
                   zIndex: 1, 
-                  height: 520, 
+                  height: 'clamp(300px, 50vw, 520px)', 
                   background: NAVY, 
                   borderRadius: 2, 
                   overflow: 'hidden' 
@@ -246,7 +247,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                     }}>
                       
                     </div>
-                    <p style={{ color: WHITE, fontFamily: "'Playfair Display', serif", fontSize: '1.4rem', lineHeight: 1.4, marginBottom: 8 }}>
+                    <p style={{ color: WHITE, fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', lineHeight: 1.4, marginBottom: 8 }}>
                       On the ground in Marrakech,<br />every single day.
                     </p>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '.85rem' }}>
@@ -263,7 +264,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
               <h2 style={{ 
                 fontFamily: "'Playfair Display', serif", 
                 fontWeight: 700, 
-                fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
+                fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', 
                 color: NAVY, 
                 lineHeight: 1.15, 
                 marginBottom: 32 
@@ -272,7 +273,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                 <em style={{ color: GOLD }}>Vialane Homes</em>
               </h2>
               
-              <div style={{ fontSize: '1.05rem', color: INKM, lineHeight: 1.9, marginBottom: 24 }}>
+              <div style={{ fontSize: 'clamp(1rem, 2vw, 1.05rem)', color: INKM, lineHeight: 1.9, marginBottom: 24 }}>
                 <p style={{ marginBottom: 20 }}>
                   Marrakech is one of the most extraordinary cities on earth. It has been drawing travellers for a thousand years. And yet — if you arrive here without a trusted contact, without someone who knows the city and understands what you actually need — you can miss the whole thing.
                 </p>
@@ -318,7 +319,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
           ════════════════════════════════════════ */}
       <section id="mission" style={{ 
         background: NAVY, 
-        padding: '120px 0', 
+        padding: 'clamp(60px, 12vw, 120px) 0', 
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
@@ -329,14 +330,14 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
           top: '50%', 
           left: '50%', 
           transform: 'translate(-50%, -50%)', 
-          width: 600, 
-          height: 600, 
+          width: 'clamp(300px, 80vw, 600px)', 
+          height: 'clamp(300px, 80vw, 600px)', 
           borderRadius: '50%', 
           background: 'radial-gradient(circle, rgba(201,151,59,0.08) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
         
-        <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 48px', position: 'relative', zIndex: 1 }}>
+        <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)', position: 'relative', zIndex: 1 }}>
           <RV>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 32 }}>
               <span style={{ width: 40, height: 1, background: GOLD }} />
@@ -349,7 +350,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
             <h2 style={{ 
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 700, 
-              fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', 
+              fontSize: 'clamp(1.6rem, 4vw, 2.6rem)', 
               color: WHITE, 
               lineHeight: 1.4,
               marginBottom: 40,
@@ -360,7 +361,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
           </RV>
           
           <RV delay={0.2}>
-            <div style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
+            <div style={{ fontSize: 'clamp(1rem, 2vw, 1.1rem)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}>
               <p style={{ marginBottom: 16 }}>
                 Not just for tourists with European passports.<br />
                 Not just for buyers with the biggest budgets.
@@ -380,19 +381,19 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
       {/* ════════════════════════════════════════
           VALUES — Premium Cards
           ════════════════════════════════════════ */}
-      <section style={{ padding: '120px 0', background: WHITE }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px' }}>
+      <section style={{ padding: 'clamp(60px, 12vw, 120px) 0', background: WHITE }}>
+        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)' }}>
           <RV style={{ textAlign: 'center', marginBottom: 72 }}>
             <Label>What We Stand For</Label>
             <h2 style={{ 
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 3rem)', 
+              fontSize: 'clamp(1.8rem, 4vw, 3rem)', 
               color: NAVY 
             }}>Our Values</h2>
           </RV>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 32 }}>
             {[
               {
                 num: '01',
@@ -403,7 +404,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
               },
               {
                 num: '02',
-                icon: '',
+                icon: '◉',
                 title: 'On the Ground',
                 desc: 'We are not a remote agency working from a spreadsheet. We are in Marrakech. We know every street, every driver, every property — personally.',
                 accent: 'center',
@@ -419,7 +420,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
               <RV key={i} delay={i * 0.15}>
                 <div style={{ 
                   background: i === 1 ? NAVY : CREAMOF, 
-                  padding: '56px 40px', 
+                  padding: 'clamp(32px, 5vw, 56px) clamp(24px, 4vw, 40px)', 
                   borderRadius: 2, 
                   position: 'relative', 
                   overflow: 'hidden',
@@ -460,7 +461,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                   <h3 style={{ 
                     fontFamily: "'Playfair Display', serif", 
                     fontWeight: 700, 
-                    fontSize: '1.6rem', 
+                    fontSize: 'clamp(1.3rem, 3vw, 1.6rem)', 
                     color: i === 1 ? WHITE : NAVY, 
                     marginBottom: 20,
                     lineHeight: 1.2,
@@ -469,7 +470,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
                   </h3>
                   
                   <p style={{ 
-                    fontSize: '1rem', 
+                    fontSize: 'clamp(0.95rem, 1.5vw, 1rem)', 
                     color: i === 1 ? 'rgba(255,255,255,0.55)' : INKM, 
                     lineHeight: 1.7,
                     flex: 1,
@@ -486,14 +487,14 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
       {/* ════════════════════════════════════════
           WHY TRUST US — Editorial Block
           ════════════════════════════════════════ */}
-      <section style={{ padding: '120px 0', background: CREAM }}>
-        <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 48px', textAlign: 'center' }}>
+      <section style={{ padding: 'clamp(60px, 12vw, 120px) 0', background: CREAM }}>
+        <div className="container" style={{ maxWidth: 900, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)', textAlign: 'center' }}>
           <RV>
             <Label>Trust</Label>
             <h2 style={{ 
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 700, 
-              fontSize: 'clamp(2rem, 4vw, 3rem)', 
+              fontSize: 'clamp(1.8rem, 4vw, 3rem)', 
               color: NAVY, 
               lineHeight: 1.2, 
               marginBottom: 48 
@@ -504,7 +505,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
           
           <RV delay={0.1} style={{ 
             background: WHITE, 
-            padding: '64px 56px', 
+            padding: 'clamp(32px, 5vw, 64px) clamp(24px, 4vw, 56px)', 
             borderRadius: 2, 
             border: '1px solid rgba(15,30,60,0.06)',
             position: 'relative',
@@ -521,7 +522,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
               opacity: 0.2,
             }}>"</div>
             
-            <div style={{ fontSize: '1.1rem', color: INKM, lineHeight: 1.9, position: 'relative', zIndex: 1 }}>
+            <div style={{ fontSize: 'clamp(1rem, 2vw, 1.1rem)', color: INKM, lineHeight: 1.9, position: 'relative', zIndex: 1 }}>
               <p style={{ marginBottom: 20, fontWeight: 500, color: NAVY }}>
                 Fair question. Here is the honest answer.
               </p>
@@ -542,7 +543,7 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20
           
           <RV delay={0.2} style={{ marginTop: 48 }}>
             <WaBtn 
-href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20start%20planning%20my%20Marrakech%20experience">
+              href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20start%20planning%20my%20Marrakech%20experience">
               Start Your Journey →
             </WaBtn>
           </RV>
@@ -556,17 +557,23 @@ href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20start%20planni
         .rv.revealed { opacity: 1; transform: translateY(0); }
         
         @media (max-width: 900px) {
-          .container { padding: 0 24px !important; }
+          .container { padding: 0 clamp(16px, 3vw, 24px) !important; }
           section { padding-left: 0 !important; padding-right: 0 !important; }
           [style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr !important; }
           [style*="grid-template-columns: repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
           [style*="grid-template-columns: 1fr 1.2fr"] { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .two-col { grid-template-columns: 1fr !important; gap: 48px !important; }
+          /* VALUES section - stack cards vertically on tablets */
+          div[style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 600px) {
-          .container { padding: 0 20px !important; }
+          .container { padding: 0 clamp(12px, 2vw, 20px) !important; }
           [style*="grid-template-columns: repeat(2"] { grid-template-columns: 1fr !important; }
           [style*="padding: '64px 56px"] { padding: 40px 28px !important; }
           [style*="padding: '56px 40px"] { padding: 40px 28px !important; }
+          .two-col { gap: 24px !important; }
+          h2 { font-size: clamp(1.4rem, 5vw, 2rem) !important; }
+          p { font-size: clamp(0.9rem, 2vw, 1rem) !important; }
         }
       `}</style>
     </div>

@@ -18,6 +18,14 @@ const WA     = '#25D366';
 function useReveal() {
   useEffect(() => {
     const els = document.querySelectorAll('.rv');
+    els.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.9;
+      if (inView) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
+    });
     const io = new IntersectionObserver(
       entries => entries.forEach(e => {
         if (e.isIntersecting) {
@@ -26,9 +34,13 @@ function useReveal() {
           io.unobserve(e.target);
         }
       }),
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px 100px 0px' }
     );
-    els.forEach(el => io.observe(el));
+    els.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.9;
+      if (!inView) io.observe(el);
+    });
     return () => io.disconnect();
   }, []);
 }
@@ -37,8 +49,8 @@ function RV({ children, delay = 0, style = {}, tag = 'div', ...props }) {
   const Tag = tag;
   return (
     <Tag className="rv" style={{
-      opacity: 0,
-      transform: 'translateY(24px)',
+      opacity: 1,
+      transform: 'translateY(0)',
       transition: `opacity .85s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform .85s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
       ...style,
     }} {...props}>
@@ -107,104 +119,67 @@ function GoldBtn({ href, children, style = {} }) {
 const services = [
   {
     num: '01',
-    icon: '✈',
-    title: 'Airport Pickup & Drop-off',
+    img: '/site%20images/airport.jpg',
+    title: 'Airport Transfers',
     gradient: 'linear-gradient(135deg, #0b1829 0%, #1a2f58 100%)',
-    tagline: 'You should not have to negotiate a taxi price after a long flight.',
-    body: `Our driver will be at arrivals with your name on a board, ready to take you directly to your accommodation. Flat rate. No surprises. Cold water in the car.`,
+    tagline: 'Smooth arrivals, seamless departures.',
+    body: `Your driver meets you at arrivals with a name sign, cold water waiting. Flat rates, no negotiation needed.`,
     includes: [
-      'Private vehicle (sedan or SUV depending on group size)',
-      'Named driver with your details confirmed in advance',
-      'Meet and greet at arrivals hall',
-      'Complimentary cold water',
-      'WhatsApp contact for live updates if your flight is delayed',
+      'Private vehicle (sedan or SUV)',
+      'Meet and greet service',
+      'Flight tracking for delays',
+      'Direct transfer to your accommodation',
     ],
-    price: 'Starting from $25 per transfer (Marrakech airport) · $100 (Casablanca airport)',
-    cta: { label: 'Book via WhatsApp', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20book%20an%20airport%20transfer" },
+    price: 'Marrakech: $25 • Casablanca: $100',
+    cta: { label: 'Book Transfer', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20book%20an%20airport%20transfer" },
   },
   {
     num: '02',
-    icon: '🏡',
-    title: 'Apartments & Riads',
+    img: '/site%20images/luxury_villa_for_sale_in_marrakech16.jpg',
+    title: 'Accommodation',
     gradient: 'linear-gradient(135deg, #1c0e06 0%, #5c2510 100%)',
-    tagline: 'Every property we recommend has been visited in person.',
-    body: `No booking a place based on photos that were taken ten years ago. We know what the mattress feels like. We know the wifi works. We know the neighbourhood and what it is like at midnight.`,
+    tagline: 'Handpicked places we have actually visited.',
+    body: `No outdated photos. Every apartment and riad has been personally inspected for comfort, location, and wifi that works.`,
     includes: [
-      'Curated selection matched to your budget and preferences',
-      'Properties across Gueliz, Medina, Hivernage, and Palmeraie',
-      'Flexible lengths — 1 night to 3 months',
-      'Check-in coordination and key handover',
-      '24/7 WhatsApp support during your stay',
+      'Apartments in Gueliz and Medina',
+      'Traditional riads with authentic charm',
+      'Villas with private pools for groups',
+      'Flexible stays from 1 night to 3 months',
     ],
-    price: 'Starting from $60 per night',
-    cta: { label: 'See Accommodation Options', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20see%20accommodation%20options" },
+    price: 'From $60/night',
+    cta: { label: 'See Options', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20see%20accommodation%20options" },
   },
   {
     num: '03',
-    icon: '◉',
-    title: 'Villas & Private Residences',
-    gradient: 'linear-gradient(135deg, #0f3320 0%, #1a5c38 100%)',
-    tagline: 'For those who want complete privacy, a pool, and space to breathe.',
-    body: `Our villa selection is ideal for families, groups, and anyone who wants the full Marrakech experience without sharing a wall with a stranger.`,
+    img: '/site%20images/mode-transport-CAN-2025-MAROC-1024x538.jpeg.webp',
+    title: 'Transport & Tours',
+    gradient: 'linear-gradient(135deg, #1a2f58 0%, #0f1e3c 60%, #2d1a0e 100%)',
+    tagline: 'With driver or self-drive, your call.',
+    body: `Explore Marrakech and beyond with reliable vehicles and knowledgeable guides who know the hidden gems.`,
     includes: [
-      'Private villas with pools — sleeping 4 to 20 guests',
-      'Full property handover and welcome briefing',
-      'Chef and catering service available on request',
-      'Private driver on standby — optional',
-      'Dedicated concierge for the duration of your stay',
+      'Vehicle hire with or without driver',
+      'Desert trips to Agafay and Atlas',
+      'Coastal drive to Essaouira',
+      'Mountain adventures in Imlil',
     ],
-    price: 'Starting from $200 per night (based on size)',
-    cta: { label: 'Enquire About Villas', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20villa" },
+    price: 'Self-drive from $50/day • With driver from $80/day',
+    cta: { label: 'Book Transport', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20book%20transport" },
   },
   {
     num: '04',
-    icon: '🚗',
-    title: 'Car Hire',
-    gradient: 'linear-gradient(135deg, #1a2f58 0%, #0f1e3c 60%, #2d1a0e 100%)',
-    tagline: 'With a driver or without — your choice.',
-    body: `All vehicles are clean, well-maintained, and insured. Our drivers know Marrakech and everything around it. They are not just drivers. They are your guides.`,
-    includes: [
-      'Self-drive: insured vehicle, GPS configured, fuel guidance',
-      'With driver: English-speaking, punctual, full day or half day',
-      'Airport pickup and drop-off can be combined',
-      'Day trips outside Marrakech — Essaouira, Agafay, Atlas',
-    ],
-    price: 'Self-drive from $50/day · With driver from $80/day',
-    cta: { label: 'Book a Car', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20book%20a%20car%20hire" },
-  },
-  {
-    num: '05',
-    icon: '✦',
-    title: 'Experiences & Day Trips',
+    img: '/site%20images/experience.jpg',
+    title: 'Experiences',
     gradient: 'linear-gradient(135deg, #3d1a00 0%, #8b4513 50%, #c4572a 100%)',
-    tagline: 'The real Marrakech is not the tourist trail.',
-    body: `It is the hidden restaurant three streets back. It is the hammam the locals actually go to. It is the desert camp where the stars are so thick you cannot tell where the sky ends. We know all of it. We will take you there.`,
+    tagline: 'Beyond the tourist trail.',
+    body: `Secret spots the guidebooks miss: local hammams, hidden restaurants, and sunset camel rides under infinite stars.`,
     includes: [
-      'Agafay Desert — sunset camel ride and dinner under the stars ($70–$100/person)',
-      'Atlas Mountains day trip — Berber villages, mountain air, Imlil hiking ($80–$120)',
-      'Souk walking tour — deep medina, hidden workshops, real spice merchants ($40/person)',
-      'Traditional hammam — steam room, black soap scrub, argan oil massage ($20–$40)',
-      'Ouzoud Waterfalls — Morocco\'s most spectacular natural cascade, olive groves, wild monkeys',
-      'Night food tour — fire, smoke, street food, the square after dark',
+      'Agafay Desert sunset experience',
+      'Atlas Mountains Berber village tour',
+      'Authentic souk walking tour',
+      'Traditional hammam with argan oil massage',
     ],
-    price: 'From $20 per person depending on experience',
-    cta: { label: 'Plan an Experience', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20plan%20a%20Marrakech%20experience" },
-  },
-  {
-    num: '06',
-    icon: '💬',
-    title: '24/7 Concierge',
-    gradient: 'linear-gradient(135deg, #0b1829 0%, #152847 50%, #1a2f58 100%)',
-    tagline: 'One number. Any hour. Any question.',
-    body: `Restaurant recommendation at 10pm? Done. Medication from a pharmacy you cannot find? We will direct you. Something went wrong with your accommodation? Sorted. Want to know the best view in the city for tomorrow's sunrise? We know it.`,
-    includes: [
-      'Included with all bookings',
-      'Available to standalone clients on request',
-      'Real person in Marrakech — not a bot',
-      'Response within 2 hours. Every time.',
-    ],
-    price: 'Included with all bookings · Standalone on request',
-    cta: { label: 'Contact Concierge', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20speak%20to%20the%20Vialane%20concierge" },
+    price: 'From $20 per person',
+    cta: { label: 'Plan Experience', type: 'wa', msg: "Hi%2C%20I%27d%20like%20to%20plan%20an%20experience" },
   },
 ];
 
@@ -336,7 +311,7 @@ export default function ServicesPage() {
             </h2>
           </RV>
 
-          <div className="how-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
+          <div className="how-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
             {[
               {
                 step: '01',
@@ -398,7 +373,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ══ INDIVIDUAL SERVICES ══ */}
+{/* ══ INDIVIDUAL SERVICES ══ */}
       <section className="services-list-section" style={{ background: CREAMOF, padding: '100px 0' }} id="services-list">
         <div className="section-container">
           <RV style={{ marginBottom: 72 }}>
@@ -408,93 +383,113 @@ export default function ServicesPage() {
             </h2>
           </RV>
 
-          <div className="service-list-wrap" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {services.map((svc, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <RV key={svc.num} delay={0.1} className={`service-row ${isEven ? 'service-row-even' : 'service-row-odd'}`} style={{
-                  display: 'grid',
-                  gridTemplateColumns: isEven ? '420px 1fr' : '1fr 420px',
-                  minHeight: 440,
-                  overflow: 'hidden',
-                  borderRadius: 2,
-                }}>
-                  {/* Image panel */}
-                  {isEven && (
-                    <div style={{ background: svc.gradient, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 40 }}>
-                      <div style={{ position: 'absolute', top: 24, left: 24 }}>
-                        <div style={{
-                          fontFamily: "'Playfair Display', serif",
-                          fontWeight: 900, fontSize: '4rem',
-                          color: 'rgba(255,255,255,.08)', lineHeight: 1,
-                        }}>{svc.num}</div>
-                      </div>
-                      <div style={{ fontSize: '2.5rem', marginBottom: 16 }}>{svc.icon}</div>
-                      <h3 style={{
+          {services.map((svc, i) => {
+            const isEven = i % 2 === 0;
+            return (
+              <RV key={svc.num} delay={0} className="service-row" style={{
+                display: 'grid',
+                gridTemplateColumns: '420px 1fr',
+                minHeight: 440,
+                overflow: 'hidden',
+                borderRadius: '2px',
+                marginBottom: '12px',
+              }}>
+                {isEven ? (
+                   <>
+                     <div style={{ background: svc.gradient, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 40 }}>
+                       <div style={{ position: 'absolute', top: 24, left: 24 }}>
+                         <div style={{
+                           fontFamily: "'Playfair Display', serif",
+                           fontWeight: 900, fontSize: '4rem',
+                           color: 'rgba(255,255,255,.08)', lineHeight: 1,
+                         }}>{svc.num}</div>
+                       </div>
+                       <img src={svc.img} alt={svc.title} style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: 16 }} />
+                       <h3 style={{
+                         fontFamily: "'Playfair Display', serif",
+                         fontWeight: 700, fontSize: '1.9rem',
+                         color: WHITE, lineHeight: 1.15, marginBottom: 8,
+                       }}>{svc.title}</h3>
+                       <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, letterSpacing: '.04em' }}>{svc.price}</p>
+                     </div>
+                    <div style={{ background: NAVY, padding: '32px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <p style={{
                         fontFamily: "'Playfair Display', serif",
-                        fontWeight: 700, fontSize: '1.9rem',
-                        color: WHITE, lineHeight: 1.15, marginBottom: 8,
-                      }}>{svc.title}</h3>
-                      <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, letterSpacing: '.04em' }}>{svc.price}</p>
-                    </div>
-                  )}
-
-                  {/* Copy panel */}
-                  <div style={{ background: NAVY, padding: '52px 56px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <p style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontStyle: 'italic', fontWeight: 400,
-                      fontSize: '1.25rem', color: GOLD,
-                      lineHeight: 1.5, marginBottom: 16,
-                    }}>{svc.tagline}</p>
-
-                    <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'rgba(255,255,255,.55)', fontWeight: 300, marginBottom: 28 }}>
-                      {svc.body}
-                    </p>
-
-                    {/* Includes */}
-                    <div style={{ marginBottom: 32 }}>
-                      <p style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>
-                        What is included
+                        fontStyle: 'italic', fontWeight: 400,
+                        fontSize: '1.25rem', color: GOLD,
+                        lineHeight: 1.5, marginBottom: 16,
+                      }}>{svc.tagline}</p>
+                      <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'rgba(255,255,255,.55)', fontWeight: 300, marginBottom: 28 }}>
+                        {svc.body}
                       </p>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        {svc.includes.map((item, j) => (
-                          <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                            <span style={{ width: 6, height: 6, background: GOLD, transform: 'rotate(45deg)', flexShrink: 0, marginTop: 7 }} />
-                            <span style={{ fontSize: '.9rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, lineHeight: 1.6 }}>{item}</span>
-                          </div>
-                        ))}
+                      <div style={{ marginBottom: 32 }}>
+                        <p style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>
+                          What is included
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                          {svc.includes.map((item, j) => (
+                            <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                              <span style={{ width: 6, height: 6, background: GOLD, transform: 'rotate(45deg)', flexShrink: 0, marginTop: 7 }} />
+                              <span style={{ fontSize: '.9rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, lineHeight: 1.6 }}>{item}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
+                      <WaBtn href={`https://wa.me/212647574605?text=${svc.cta.msg}`}>
+                        {svc.cta.label}
+                      </WaBtn>
                     </div>
-
-                     <WaBtn href={`https://wa.me/212647574605?text=${svc.cta.msg}`}>
-                       {svc.cta.label}
-                     </WaBtn>
-                  </div>
-
-                  {/* Image panel — odd rows on right */}
-                  {!isEven && (
-                    <div style={{ background: svc.gradient, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 40 }}>
-                      <div style={{ position: 'absolute', top: 24, right: 24 }}>
-                        <div style={{
-                          fontFamily: "'Playfair Display', serif",
-                          fontWeight: 900, fontSize: '4rem',
-                          color: 'rgba(255,255,255,.08)', lineHeight: 1,
-                        }}>{svc.num}</div>
-                      </div>
-                      <div style={{ fontSize: '2.5rem', marginBottom: 16 }}>{svc.icon}</div>
-                      <h3 style={{
+                  </>
+                ) : (
+                  <>
+                    <div style={{ background: NAVY, padding: '32px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <p style={{
                         fontFamily: "'Playfair Display', serif",
-                        fontWeight: 700, fontSize: '1.9rem',
-                        color: WHITE, lineHeight: 1.15, marginBottom: 8,
-                      }}>{svc.title}</h3>
-                      <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, letterSpacing: '.04em' }}>{svc.price}</p>
-                    </div>
-                  )}
-                </RV>
-              );
-            })}
-          </div>
+                        fontStyle: 'italic', fontWeight: 400,
+                        fontSize: '1.25rem', color: GOLD,
+                        lineHeight: 1.5, marginBottom: 16,
+                      }}>{svc.tagline}</p>
+                      <p style={{ fontSize: '1rem', lineHeight: 1.8, color: 'rgba(255,255,255,.55)', fontWeight: 300, marginBottom: 28 }}>
+                        {svc.body}
+                      </p>
+                      <div style={{ marginBottom: 32 }}>
+                        <p style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>
+                          What is included
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                          {svc.includes.map((item, j) => (
+                            <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                              <span style={{ width: 6, height: 6, background: GOLD, transform: 'rotate(45deg)', flexShrink: 0, marginTop: 7 }} />
+                              <span style={{ fontSize: '.9rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, lineHeight: 1.6 }}>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <WaBtn href={`https://wa.me/212647574605?text=${svc.cta.msg}`}>
+                        {svc.cta.label}
+                      </WaBtn>
+                     </div>
+                     <div style={{ background: svc.gradient, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: 40 }}>
+                       <div style={{ position: 'absolute', top: 24, right: 24 }}>
+                         <div style={{
+                           fontFamily: "'Playfair Display', serif",
+                           fontWeight: 900, fontSize: '4rem',
+                           color: 'rgba(255,255,255,.08)', lineHeight: 1,
+                         }}>{svc.num}</div>
+                       </div>
+                       <img src={svc.img} alt={svc.title} style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: 16 }} />
+                       <h3 style={{
+                         fontFamily: "'Playfair Display', serif",
+                         fontWeight: 700, fontSize: '1.9rem',
+                         color: WHITE, lineHeight: 1.15, marginBottom: 8,
+                       }}>{svc.title}</h3>
+                       <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.5)', fontWeight: 300, letterSpacing: '.04em' }}>{svc.price}</p>
+                     </div>
+                   </>
+)}
+              </RV>
+            );
+          })}
         </div>
       </section>
 
@@ -631,7 +626,7 @@ export default function ServicesPage() {
               Tell us your dates and what you need.<br />We will handle the rest.
             </p>
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <WaBtn href="https://wa.me/212600000000?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip">
+              <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip">
                 WhatsApp Us Now
               </WaBtn>
               <GoldBtn href="/contact">
@@ -665,94 +660,82 @@ export default function ServicesPage() {
           to { opacity: 1; transform: translateY(0); }
         }
         
-        .how-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 2;
-        }
-        
-        .service-list-wrap {
-          display: flex;
-          flex-direction: column;
-          gap: 2;
-        }
-        
-        .service-row {
-          display: grid;
-          grid-template-columns: 420px 1fr;
-          min-height: 440px;
-          overflow: hidden;
-          border-radius: 2px;
-        }
-        
-        .service-row-odd {
-          grid-template-columns: 1fr 420px;
-        }
-        
+.how-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+          
         .pkg-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
-        }
-        
-        @media (max-width: 1100px) {
-          .service-row,
-          .service-row-odd {
-            grid-template-columns: 340px 1fr !important;
-          }
-        }
-        
-        @media (max-width: 900px) {
-          .section-container {
-            padding: 0 32px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
           }
           
-          .how-grid {
-            grid-template-columns: 1fr !important;
+        .service-row {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            min-height: 440px;
+            overflow: hidden;
+            border-radius: 2px;
           }
           
-          .service-row,
-          .service-row-odd {
-            grid-template-columns: 1fr !important;
+          @media (max-width: 1100px) {
+            .service-row {
+              grid-template-columns: 340px 1fr;
+            }
           }
           
-          .service-row > div:first-child {
-            min-height: 280px;
+          @media (max-width: 900px) {
+            .section-container {
+              padding: 0 32px;
+            }
+            
+            .service-row {
+              grid-template-columns: 1fr;
+            }
+            
+            .service-row > div:first-child {
+              min-height: 280px;
+            }
+            
+            .how-grid {
+              grid-template-columns: 1fr !important;
+            }
+            
+            .pkg-grid {
+              grid-template-columns: 1fr 1fr !important;
+            }
           }
           
-          .pkg-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        
         @media (max-width: 600px) {
-          .section-container {
-            padding: 0 20px;
+           .section-container {
+             padding: 0 20px;
+           }
+           
+           .hero-section {
+             padding: 120px 0 80px !important;
+           }
+           
+           .how-section,
+           .services-list-section,
+           .packages-section {
+             padding: 70px 0 !important;
+           }
+           
+           .final-cta-section {
+             padding: 80px 0 !important;
+           }
+           
+           .pkg-grid {
+             grid-template-columns: 1fr !important;
+           }
+           
+.service-row {
+              min-height: 400px !important;
+            }
           }
-          
-          .hero-section {
-            padding: 120px 0 80px !important;
-          }
-          
-          .how-section,
-          .services-list-section,
-          .packages-section {
-            padding: 70px 0 !important;
-          }
-          
-          .final-cta-section {
-            padding: 80px 0 !important;
-          }
-          
-          .pkg-grid {
-            grid-template-columns: 1fr !important;
-          }
-          
-          .service-row > div {
-            padding: 32px 24px !important;
-          }
-        }
-      `}</style>
+       `}</style>
     </div>
   );
 }

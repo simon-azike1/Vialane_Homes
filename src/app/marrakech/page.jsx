@@ -87,16 +87,16 @@ function WaBtn({ href, children, style = {} }) {
 export default function MarrakechPage() {
   useReveal();
 
-    const experiences = [
-        { title: 'Jemaa el-Fna', sub: "The World's Greatest Square. Fire dancers, storytellers, 200 food stalls.", img: '/site%20images/moroccan_interior_design_style_xj5pc-1024x572.jpg' },
-        { title: 'The Souks', sub: 'A thousand stalls. Leather, spice, rugs. Put your phone down and wander.', img: '/site%20images/service.jpg' },
-        { title: 'The Hammam', sub: 'Steam room. Black soap scrub. Argan oil massage. Ancient ritual.', img: '/site%20images/featured-property-image-morocco-3.jpg' },
-        { title: 'Agafay Desert', sub: 'Semi-desert plateau just outside the city. Camel ride at golden hour.', img: '/site%20images/Couloir-Riad-Diamond-Marrakech.webp' },
-        { title: 'Atlas Mountains', sub: 'Snow-capped peaks. Berber villages. Hiking trails in Imlil.', img: '/site%20images/luxury_villa_for_sale_in_marrakech16.jpg' },
-        { title: 'Jardin Majorelle', sub: "Yves Saint Laurent's Icon. Cobalt blue garden. Botanical beauty.", img: '/site%20images/Villa-Hotia_Marrakech_1_KPPM04016.jpg' },
-        { title: 'The Food', sub: "Tagine for $5. Fresh orange juice for 40 cents. Best meal of your life.", img: '/site%20images/Real-Dream-House-Agence-immobiliere-marrakech.webp' },
-        { title: 'Rooftop Marrakech', sub: 'Rooftop bars in Gueliz. Clubs in Hivernage. The Red City after dark.', img: '/site%20images/image-home.jpg' },
-    ];
+  const experiences = [
+    { title: 'Jemaa el-Fna', sub: "The World's Greatest Square. Fire dancers, storytellers, 200 food stalls.", img: '/site%20images/moroccan_interior_design_style_xj5pc-1024x572.jpg' },
+    { title: 'The Souks', sub: 'A thousand stalls. Leather, spice, rugs. Put your phone down and wander.', img: '/site%20images/service.jpg' },
+    { title: 'The Hammam', sub: 'Steam room. Black soap scrub. Argan oil massage. Ancient ritual.', img: '/site%20images/featured-property-image-morocco-3.jpg' },
+    { title: 'Agafay Desert', sub: 'Semi-desert plateau just outside the city. Camel ride at golden hour.', img: '/site%20images/Couloir-Riad-Diamond-Marrakech.webp' },
+    { title: 'Atlas Mountains', sub: 'Snow-capped peaks. Berber villages. Hiking trails in Imlil.', img: '/site%20images/luxury_villa_for_sale_in_marrakech16.jpg' },
+    { title: 'Jardin Majorelle', sub: "Yves Saint Laurent's Icon. Cobalt blue garden. Botanical beauty.", img: '/site%20images/Villa-Hotia_Marrakech_1_KPPM04016.jpg' },
+    { title: 'The Food', sub: "Tagine for $5. Fresh orange juice for 40 cents. Best meal of your life.", img: '/site%20images/Real-Dream-House-Agence-immobiliere-marrakech.webp' },
+    { title: 'Rooftop Marrakech', sub: 'Rooftop bars in Gueliz. Clubs in Hivernage. The Red City after dark.', img: '/site%20images/image-home.jpg' },
+  ];
 
   return (
     <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: INKM, background: WHITE, overflowX: 'hidden' }}>
@@ -106,8 +106,8 @@ export default function MarrakechPage() {
           ════════════════════════════════════════ */}
       <section style={{ 
         position: 'relative', 
-        height: '90vh', 
-        minHeight: '600px', 
+        height: 'clamp(500px, 90vh, 100vh)', 
+        minHeight: '500px', 
         background: NAVYD, 
         overflow: 'hidden',
         display: 'flex',
@@ -143,7 +143,7 @@ export default function MarrakechPage() {
           zIndex: 2, 
           maxWidth: 900, 
           margin: '0 auto', 
-          padding: '0 48px',
+          padding: '0 clamp(16px, 3vw, 48px)',
           width: '100%',
         }}>
           <RV delay={0.1}>
@@ -152,7 +152,7 @@ export default function MarrakechPage() {
               fontWeight: 700, 
               lineHeight: 1.05,
               color: WHITE,
-              fontSize: 'clamp(3rem, 7vw, 6rem)',
+              fontSize: 'clamp(2rem, 7vw, 6rem)',
               marginBottom: 24,
             }}>
               Marrakech.<br />
@@ -162,7 +162,7 @@ export default function MarrakechPage() {
           
           <RV delay={0.2}>
             <p style={{
-              fontSize: '1.2rem',
+              fontSize: 'clamp(1rem, 2vw, 1.2rem)',
               lineHeight: 1.8,
               color: 'rgba(255,255,255,0.7)',
               maxWidth: 650,
@@ -177,11 +177,11 @@ export default function MarrakechPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
+      {/* ═════════════════════════════════════════
           WHY NOW — Stats & Context
-          ════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: CREAMOF }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 80, alignItems: 'center' }}>
+          ═════════════════════════════════════════ */}
+      <section style={{ padding: 'clamp(60px, 12vw, 100px) 0', background: CREAMOF }}>
+        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(40px, 8vw, 80px)', alignItems: 'center' }}>
           
           {/* Left: Copy */}
           <RV>
@@ -189,7 +189,7 @@ export default function MarrakechPage() {
             <h2 style={{ 
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
+              fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', 
               color: NAVY, 
               lineHeight: 1.15, 
               marginBottom: 32 
@@ -198,7 +198,7 @@ export default function MarrakechPage() {
               <em style={{ color: GOLD }}>Why Right Now.</em>
             </h2>
             
-            <div style={{ fontSize: '1.05rem', color: INKM, lineHeight: 1.9, marginBottom: 24 }}>
+            <div style={{ fontSize: 'clamp(1rem, 2vw, 1.05rem)', color: INKM, lineHeight: 1.9, marginBottom: 24 }}>
               <p style={{ marginBottom: 20 }}>
                 Morocco just overtook Egypt to become Africa's most visited country. 19.8 million tourists arrived in 2025 — a new record.
               </p>
@@ -214,52 +214,51 @@ export default function MarrakechPage() {
             </div>
           </RV>
 
-            {/* Right: Image Grid / Visuals */}
-           <RV delay={0.15}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, height: '500px' }}>
-                <div style={{ background: NAVY, borderRadius: 2, overflow: 'hidden' }}>
-                  <img src="/site%20images/moroccan_interior_design_style_xj5pc-1024x572.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Morocco Architecture" />
+          {/* Right: Image Grid / Visuals */}
+          <RV delay={0.15}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, height: 'clamp(300px, 50vw, 500px)' }}>
+              <div style={{ background: NAVY, borderRadius: 2, overflow: 'hidden' }}>
+                <img src="/site%20images/moroccan_interior_design_style_xj5pc-1024x572.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Morocco Architecture" />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ background: GOLD, borderRadius: 2, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, color: NAVY }}>19.8M</div>
+                    <div style={{ fontSize: '.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.1em', color: NAVY }}>Tourists in 2025</div>
+                  </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <div style={{ background: GOLD, borderRadius: 2, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '3rem', fontWeight: 700, color: NAVY }}>19.8M</div>
-                      <div style={{ fontSize: '.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.1em', color: NAVY }}>Tourists in 2025</div>
-                    </div>
-                  </div>
-                  <div style={{ background: NAVYD, borderRadius: 2, flex: 1, overflow: 'hidden' }}>
-                     <img src="/site%20images/Couloir-Riad-Diamond-Marrakech.webp" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} alt="Desert" />
-                  </div>
+                <div style={{ background: NAVYD, borderRadius: 2, flex: 1, overflow: 'hidden' }}>
+                  <img src="/site%20images/Couloir-Riad-Diamond-Marrakech.webp" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} alt="Desert" />
                 </div>
               </div>
-           </RV>
+            </div>
+          </RV>
         </div>
       </section>
 
       {/* ════════════════════════════════════════
           EXPERIENCES — Visual Grid
           ════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: WHITE }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px' }}>
+      <section style={{ padding: 'clamp(60px, 12vw, 100px) 0', background: WHITE }}>
+        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)' }}>
           <RV style={{ textAlign: 'center', marginBottom: 64 }}>
             <Label>The Experience</Label>
             <h2 style={{ 
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 3rem)', 
+              fontSize: 'clamp(1.8rem, 4vw, 3rem)', 
               color: NAVY 
             }}>What You Will Do.</h2>
           </RV>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 24 }}>
             {experiences.map((e, i) => (
               <RV key={i} delay={i * 0.08} style={{ 
                 background: NAVY, 
                 borderRadius: 2, 
-                minHeight: 320, 
+                minHeight: 'clamp(280px, 50vw, 320px)', 
                 position: 'relative', 
                 overflow: 'hidden',
-                group: 'hover:scale-105 transition-transform duration-500'
               }}>
                 {/* Image Background */}
                 <img 
@@ -281,26 +280,25 @@ export default function MarrakechPage() {
                   background: 'linear-gradient(to top, rgba(8,15,30,0.95) 0%, rgba(8,15,30,0.4) 50%, transparent 100%)' 
                 }} />
                 
-                 {/* Content */}
-                 <div style={{ 
-                   position: 'absolute', 
-                   bottom: 0, 
-                   left: 0, 
-                   right: 0, 
-                   padding: 32, 
-                   zIndex: 2 
-                 }}>
-                   <div style={{ fontSize: '0rem', marginBottom: 12 }}>{e.icon}</div>
+                {/* Content */}
+                <div style={{ 
+                  position: 'absolute', 
+                  bottom: 0, 
+                  left: 0, 
+                  right: 0, 
+                  padding: 'clamp(20px, 4vw, 32px)', 
+                  zIndex: 2 
+                }}>
                   <h3 style={{ 
                     fontFamily: "'Playfair Display', serif", 
                     fontWeight: 700, 
-                    fontSize: '1.4rem', 
+                    fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
                     color: WHITE, 
                     marginBottom: 8,
                     lineHeight: 1.2,
                   }}>{e.title}</h3>
                   <p style={{ 
-                    fontSize: '.9rem', 
+                    fontSize: 'clamp(0.85rem, 1.5vw, 0.9rem)', 
                     color: 'rgba(255,255,255,0.7)', 
                     lineHeight: 1.6 
                   }}>{e.sub}</p>
@@ -314,26 +312,26 @@ export default function MarrakechPage() {
       {/* ════════════════════════════════════════
           VISA INFO — Practical & Clear
           ════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: CREAM }}>
-        <div className="container" style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px' }}>
+      <section style={{ padding: 'clamp(60px, 12vw, 100px) 0', background: CREAM }}>
+        <div className="container" style={{ maxWidth: 800, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)' }}>
           <RV style={{ textAlign: 'center', marginBottom: 48 }}>
             <Label>Travel Info</Label>
             <h2 style={{ 
               fontFamily: "'Playfair Display', serif", 
               fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
+              fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', 
               color: NAVY 
             }}>Can I Visit Morocco?</h2>
           </RV>
           
-          <RV delay={0.1} style={{ background: WHITE, padding: '48px', borderRadius: 2, border: '1px solid rgba(15,30,60,0.08)', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+          <RV delay={0.1} style={{ background: WHITE, padding: 'clamp(32px, 5vw, 48px)', borderRadius: 2, border: '1px solid rgba(15,30,60,0.08)', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
             
             {/* Tab 1: Nigeria */}
             <div style={{ marginBottom: 40 }}>
               <h3 style={{ 
                 fontFamily: "'Bricolage Grotesque', sans-serif", 
                 fontWeight: 700, 
-                fontSize: '1.2rem', 
+                fontSize: 'clamp(1rem, 2vw, 1.2rem)', 
                 color: NAVY, 
                 marginBottom: 16,
                 display: 'flex',
@@ -343,10 +341,10 @@ export default function MarrakechPage() {
                 <span style={{ width: 8, height: 8, background: GOLD, borderRadius: '50%' }} />
                 For Nigerian Passport Holders
               </h3>
-              <p style={{ fontSize: '1rem', color: INKM, lineHeight: 1.8, marginBottom: 16 }}>
+              <p style={{ fontSize: 'clamp(0.95rem, 1.5vw, 1rem)', color: INKM, lineHeight: 1.8, marginBottom: 16 }}>
                 You need a visa to visit Morocco. Two options:
               </p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '1rem', color: INKM, lineHeight: 1.8 }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: 'clamp(0.95rem, 1.5vw, 1rem)', color: INKM, lineHeight: 1.8 }}>
                 <li style={{ marginBottom: 12 }}>
                   <strong style={{ color: NAVY }}>Option 1 — Standard Tourist Visa:</strong><br />
                   Apply at the Moroccan embassy in Lagos or Abuja. Allows up to 90 days. Processing: approx 10 business days. Documents: valid passport, photos, bank statement, return flight, accommodation proof.
@@ -365,27 +363,27 @@ export default function MarrakechPage() {
             <div style={{ height: 1, background: 'rgba(15,30,60,0.08)', margin: '32px 0' }} />
 
             {/* Tab 2: International */}
-             <div>
-               <h3 style={{ 
-                 fontFamily: "'Bricolage Grotesque', sans-serif", 
-                 fontWeight: 700, 
-                 fontSize: '1.2rem', 
-                 color: NAVY, 
-                 marginBottom: 16,
-                 display: 'flex',
-                 alignItems: 'center',
-                 gap: 12,
-               }}>
-                 <span style={{ width: 8, height: 8, background: GOLD, borderRadius: '50%' }} />
-                 For UK, European, American & Gulf Visitors
-               </h3>
-               <p style={{ fontSize: '1rem', color: INKM, lineHeight: 1.8, marginBottom: 24 }}>
-                 Most nationalities enter Morocco visa-free for up to 90 days. Your passport must be valid for at least 6 months from entry date.
-               </p>
-               <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20check%20visa%20requirements%20for%20my%20passport">
-                 WhatsApp Us for Visa Help
-               </WaBtn>
-             </div>
+            <div>
+              <h3 style={{ 
+                fontFamily: "'Bricolage Grotesque', sans-serif", 
+                fontWeight: 700, 
+                fontSize: 'clamp(1rem, 2vw, 1.2rem)', 
+                color: NAVY, 
+                marginBottom: 16,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+              }}>
+                <span style={{ width: 8, height: 8, background: GOLD, borderRadius: '50%' }} />
+                For UK, European, American & Gulf Visitors
+              </h3>
+              <p style={{ fontSize: 'clamp(0.95rem, 1.5vw, 1rem)', color: INKM, lineHeight: 1.8, marginBottom: 24 }}>
+                Most nationalities enter Morocco visa-free for up to 90 days. Your passport must be valid for at least 6 months from entry date.
+              </p>
+              <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20check%20visa%20requirements%20for%20my%20passport">
+                WhatsApp Us for Visa Help
+              </WaBtn>
+            </div>
 
           </RV>
         </div>
@@ -394,20 +392,20 @@ export default function MarrakechPage() {
       {/* ════════════════════════════════════════
           FINAL CTA
           ════════════════════════════════════════ */}
-      <section style={{ background: NAVYD, padding: '100px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ background: NAVYD, padding: 'clamp(60px, 12vw, 100px) 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, opacity: .04, backgroundImage: `url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 0L80 20L80 60L40 80L0 60L0 20Z' fill='none' stroke='%23C9973B' stroke-width='0.35'/%3E%3C/svg%3E")` }} />
-        <div className="container" style={{ maxWidth: 700, margin: '0 auto', padding: '0 48px', position: 'relative', zIndex: 1 }}>
+        <div className="container" style={{ maxWidth: 700, margin: '0 auto', padding: '0 clamp(16px, 3vw, 48px)', position: 'relative', zIndex: 1 }}>
           <RV>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
               <span style={{ width: 28, height: 1, background: GOLD, display: 'block' }} />
               <span style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: '.68rem', fontWeight: 500, letterSpacing: '.22em', textTransform: 'uppercase', color: GOLD }}>Ready?</span>
               <span style={{ width: 28, height: 1, background: GOLD, display: 'block' }} />
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 'clamp(2.2rem,4vw,4rem)', color: WHITE, lineHeight: 1.1, marginBottom: 16 }}>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 'clamp(1.8rem, 4vw, 4rem)', color: WHITE, lineHeight: 1.1, marginBottom: 16 }}>
               Your Marrakech is<br />
               <em style={{ color: GOLD }}>One Message Away.</em>
             </h2>
-            <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,.4)', fontWeight: 300, lineHeight: 1.75, maxWidth: 440, margin: '0 auto 40px' }}>
+            <p style={{ fontSize: 'clamp(1rem, 2vw, 1rem)', color: 'rgba(255,255,255,.4)', fontWeight: 300, lineHeight: 1.75, maxWidth: 440, margin: '0 auto 40px' }}>
               Tell us your dates and what you need.<br />We will handle the rest.
             </p>
             <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -436,14 +434,19 @@ export default function MarrakechPage() {
         .rv.revealed { opacity: 1; transform: translateY(0); }
         
         @media (max-width: 900px) {
-          .container { padding: 0 24px !important; }
+          .container { padding: 0 clamp(16px, 3vw, 24px) !important; }
           section { padding-left: 0 !important; padding-right: 0 !important; }
           [style*="grid-template-columns: repeat(2"] { grid-template-columns: 1fr !important; gap: 40px !important; }
           [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+          /* WHY NOW section - stack columns vertically on tablets */
+          div[style*="display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)'"] { grid-template-columns: 1fr !important; gap: 24px !important; }
         }
         @media (max-width: 600px) {
-          .container { padding: 0 20px !important; }
+          .container { padding: 0 clamp(12px, 2vw, 20px) !important; }
           [style*="padding: '48px"] { padding: 32px 24px !important; }
+          h1 { font-size: clamp(1.4rem, 5vw, 2rem) !important; }
+          h2 { font-size: clamp(1.4rem, 5vw, 2rem) !important; }
+          p { font-size: clamp(0.9rem, 2vw, 1rem) !important; }
         }
       `}</style>
     </div>
