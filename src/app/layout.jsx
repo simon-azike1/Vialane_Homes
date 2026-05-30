@@ -2,7 +2,11 @@ import './globals.css';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer-new';
 import WaFloat from '@/components/WaFloat';
-import Head from 'next/head';
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata = {
   title: 'Vialane Homes',
