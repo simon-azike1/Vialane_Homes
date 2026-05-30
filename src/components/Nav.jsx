@@ -1,18 +1,11 @@
 'use client';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
-
-const NAVY  = '#0F1E3C';
-const NAVYD = '#080F1E';
-const GOLD  = '#C9973B';
-const GOLDL = '#DDB96A';
-const WHITE = '#FFFFFF';
 
 const links = [
   { label: 'About',     href: '/about' },
   { label: 'Services',  href: '/service' },
   { label: 'Marrakech', href: '/marrakech' },
-  // { label: 'Tourism',    href: '/tourism' },
-  // { label: 'Invest',    href: '/invest' },
   { label: 'Events',    href: '/events' },
   { label: 'Contact',   href: '/contact' },
 ];
@@ -34,59 +27,43 @@ export default function Nav() {
   return (
     <>
       {/* Desktop Nav */}
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: scrolled ? '14px 48px' : '22px 48px',
-        background: scrolled ? 'rgba(8,15,30,.93)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-        transition: 'padding .4s, background .4s',
-      }}>
+      <nav className={`fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between transition-all duration-400 ${
+        scrolled
+          ? 'bg-[rgba(8,15,30,0.93)] backdrop-blur-[20px] py-[14px] px-12'
+          : 'bg-transparent py-[22px] px-12'
+      }`}>
         {/* Logo */}
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <img src="/new-logo.png" alt="Vialane Logo" style={{ height: '48px', width: '48px', borderRadius: '50%', objectFit: 'cover' }} />
-          <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: '1.55rem', letterSpacing: '.12em', color: '#FFFFFF', textDecoration: 'none' }}>
-            VIALANE<span style={{ color: '#C9973B' }}>.</span>
+        <Link href="/" className="flex items-center gap-3">
+          <img
+            src="/new-logo.png"
+            alt="Vialane Logo"
+            className="h-12 w-12 rounded-full object-cover"
+          />
+          <span className="font-display text-xl font-bold tracking-[0.12em] text-white">
+            VIALANE<span className="text-gold">.</span>
           </span>
-        </a>
+        </Link>
 
         {/* Links — desktop only */}
-        <ul style={{ display: 'flex', alignItems: 'center', gap: 32, listStyle: 'none', margin: 0, padding: 0 }}
-            className="nav-desktop-links">
+        <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
           {links.map(l => (
             <li key={l.href}>
-              <a href={l.href} style={{
-                fontFamily: "'Bricolage Grotesque', sans-serif",
-                fontSize: '.72rem', fontWeight: 500,
-                letterSpacing: '.16em', textTransform: 'uppercase',
-                color: 'rgba(255,255,255,.7)', textDecoration: 'none',
-                transition: 'color .2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = WHITE}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.7)'}
+              <Link
+                href={l.href}
+                className="font-body text-xs font-medium tracking-[0.16em] uppercase text-white/70 no-underline transition-colors duration-200 hover:text-white"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
-        {/* CTA */}
-        <a href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip"
-            target="_blank" rel="noopener noreferrer"
-            className="nav-cta-btn"
-            style={{
-              fontFamily: "'Bricolage Grotesque', sans-serif",
-              fontSize: '.72rem', fontWeight: 600,
-              letterSpacing: '.14em', textTransform: 'uppercase',
-              background: GOLD, color: NAVY,
-              padding: '11px 24px', borderRadius: 2,
-              textDecoration: 'none',
-              transition: 'background .2s',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = GOLDL}
-            onMouseLeave={e => e.currentTarget.style.background = GOLD}
+        {/* CTA — desktop only */}
+        <a
+          href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-block font-body text-xs font-semibold tracking-[0.14em] uppercase bg-gold text-navy px-6 py-2.5 no-underline transition-all duration-200 hover:bg-gold-light hover:-translate-y-0.5"
         >
           Plan My Trip
         </a>
@@ -94,66 +71,41 @@ export default function Nav() {
         {/* Burger — mobile only */}
         <button
           onClick={() => setOpen(o => !o)}
-          className="nav-burger"
-          style={{ display: 'none', flexDirection: 'column', gap: 5, cursor: 'pointer', padding: 6, background: 'none', border: 'none' }}
+          className="md:hidden flex flex-col gap-1.25 cursor-pointer p-1.5 bg-none border-none"
           aria-label="Toggle menu"
         >
-          <span style={{ display: 'block', width: 22, height: 1.5, background: WHITE, transition: '.3s', transform: open ? 'rotate(45deg) translate(0, 4.5px)' : 'none' }} />
-          <span style={{ display: 'block', width: 22, height: 1.5, background: WHITE, transition: '.3s', opacity: open ? 0 : 1 }} />
-          <span style={{ display: 'block', width: 22, height: 1.5, background: WHITE, transition: '.3s', transform: open ? 'rotate(-45deg) translate(0, -4.5px)' : 'none' }} />
+          <span className={`block w-5.5 h-0.375 bg-white transition-all duration-300 ${open ? 'rotate-45 translate-y-1.125' : ''}`} />
+          <span className={`block w-5.5 h-0.375 bg-white transition-all duration-300 ${open ? 'opacity-0' : ''}`} />
+          <span className={`block w-5.5 h-0.375 bg-white transition-all duration-300 ${open ? '-rotate-45 -translate-y-1.125' : ''}`} />
         </button>
       </nav>
 
       {/* Mobile overlay */}
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 997,
-        background: NAVYD,
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        padding: '48px 32px',
-        transform: open ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform .45s cubic-bezier(0.16,1,0.3,1)',
-      }}>
-        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 40 }}>
+      <div className={`fixed inset-0 z-[997] bg-navy-deep flex flex-col justify-center px-8 py-12 transition-transform duration-[450ms] cubic-bezier(0.16,1,0.3,1) ${
+        open ? 'translate-x-0' : 'translate-x-full'
+      }`}>
+        <ul className="list-none m-0 p-0 flex flex-col gap-1 mb-10">
           {links.map(l => (
             <li key={l.href}>
-              <a href={l.href} onClick={() => setOpen(false)} style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: '2.8rem', fontWeight: 400,
-                color: 'rgba(255,255,255,.65)', textDecoration: 'none',
-                display: 'block', padding: '10px 0',
-                borderBottom: '1px solid rgba(255,255,255,.06)',
-                transition: 'color .2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = GOLD}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.65)'}
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="font-display text-4xl font-normal text-white/65 no-underline block py-2.5 border-b border-white/6 transition-colors duration-200 hover:text-gold"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
-        <a href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip"
-            target="_blank" rel="noopener noreferrer"
-            style={{
-              background: GOLD, color: NAVY,
-              fontFamily: "'Bricolage Grotesque', sans-serif",
-              fontSize: '.85rem', fontWeight: 600,
-              letterSpacing: '.14em', textTransform: 'uppercase',
-              padding: '18px 32px', borderRadius: 2,
-              textDecoration: 'none', textAlign: 'center', display: 'block',
-            }}>
-          Plan My Trip →
+        <a
+          href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-gold text-navy font-body text-sm font-semibold tracking-[0.14em] uppercase px-8 py-4.5 no-underline text-center block rounded transition-all duration-200 hover:bg-gold-light"
+        >
+          Plan My Trip &rarr;
         </a>
       </div>
-
-      {/* Responsive styles */}
-      <style>{`
-        @media (max-width: 980px) {
-          .nav-desktop-links { display: none !important; }
-          .nav-cta-btn { display: none !important; }
-          .nav-burger { display: flex !important; }
-        }
-      `}</style>
     </>
   );
 }

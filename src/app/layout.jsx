@@ -1,6 +1,6 @@
 import './globals.css';
 import Nav from '@/components/Nav';
-import Footer from '@/components/Footer';
+import Footer from '@/components/Footer-new';
 import WaFloat from '@/components/WaFloat';
 import Head from 'next/head';
 

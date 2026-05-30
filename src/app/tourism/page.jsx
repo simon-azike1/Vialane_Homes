@@ -1,23 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Header from '@/components/Nav';
-import Footer from '@/components/Footer';
-import WaFloat from '@/components/WaFloat';
 
-// ── BRAND COLORS ──
-const NAVY   = '#0F1E3C';
-const NAVYD  = '#080F1E';
-const GOLD   = '#C9973B';
-const GOLDL  = '#DDB96A';
-const CREAM  = '#F6F1E9';
-const CREAMOF= '#FDFAF5';
-const INK    = '#18110A';
-const INKM   = '#3E3328';
-const INKMU  = '#7A6E61';
-const WHITE  = '#FFFFFF';
-const WA     = '#25D366';
-
-// ── SCROLL REVEAL HOOK ──
 function useReveal() {
   useEffect(() => {
     const els = document.querySelectorAll('.rv');
@@ -51,9 +34,9 @@ function RV({ children, delay = 0, style = {}, tag = 'div', ...props }) {
 
 function Label({ children }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-      <span style={{ display: 'block', width: 30, height: 1, background: GOLD, flexShrink: 0 }} />
-      <span style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: '.68rem', fontWeight: 500, letterSpacing: '.22em', textTransform: 'uppercase', color: GOLD }}>
+    <div className="flex items-center gap-3 mb-4">
+      <span className="block w-7 h-px bg-gold flex-shrink-0" />
+      <span className="font-body text-2xs font-medium tracking-widest uppercase text-gold">
         {children}
       </span>
     </div>
@@ -65,14 +48,8 @@ function WaBtn({ href, children, style = {} }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer"
        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+       className="inline-flex items-center gap-2 bg-[#25D366] text-white font-body text-xs font-semibold tracking-widest uppercase no-underline rounded-md transition-all duration-200"
        style={{
-         display: 'inline-flex', alignItems: 'center', gap: 8,
-         background: hov ? '#1fb956' : WA, color: WHITE,
-         fontFamily: "'Bricolage Grotesque', sans-serif",
-         fontSize: '.75rem', fontWeight: 600,
-         letterSpacing: '.14em', textTransform: 'uppercase',
-         padding: '13px 28px', borderRadius: 2, textDecoration: 'none',
-         transition: 'background .2s, transform .2s',
          transform: hov ? 'translateY(-2px)' : 'translateY(0)',
          ...style,
        }}>
@@ -84,226 +61,110 @@ function WaBtn({ href, children, style = {} }) {
   );
 }
 
-export default function MarrakechPage() {
+export default function TourismPage() {
   useReveal();
 
   const experiences = [
-    { title: 'Jemaa el-Fna', sub: "The World's Greatest Square. Fire dancers, storytellers, 200 food stalls.", icon: '🔥', img: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=1000&auto=format&fit=crop' },
+    { title: 'Jemaa el-Fna', sub: "The World&apos;s Greatest Square. Fire dancers, storytellers, 200 food stalls.", icon: '🔥', img: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=1000&auto=format&fit=crop' },
     { title: 'The Souks', sub: 'A thousand stalls. Leather, spice, rugs. Put your phone down and wander.', icon: '🛍️', img: 'https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'The Hammam', sub: 'Steam room. Black soap scrub. Argan oil massage. Ancient ritual.', icon: '💆♀️', img: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000&auto=format&fit=crop' },
+    { title: 'The Hammam', sub: 'Steam room. Black soap scrub. Argan oil massage. Ancient ritual.', icon: '💆', img: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000&auto=format&fit=crop' },
     { title: 'Agafay Desert', sub: 'Semi-desert plateau just outside the city. Camel ride at golden hour.', icon: '🐫', img: 'https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'Atlas Mountains', sub: 'Snow-capped peaks. Berber villages. Hiking trails in Imlil.', icon: '⛰️', img: 'https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=1000&auto=format&fit=crop' }, // Placeholder for Atlas
-    { title: 'Jardin Majorelle', sub: "Yves Saint Laurent's Icon. Cobalt blue garden. Botanical beauty.", icon: '🌿', img: 'https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=1000&auto=format&fit=crop' }, // Placeholder for Garden
+    { title: 'Atlas Mountains', sub: 'Snow-capped peaks. Berber villages. Hiking trails in Imlil.', icon: '⛰️', img: 'https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=1000&auto=format&fit=crop' },
+    { title: 'Jardin Majorelle', sub: "Yves Saint Laurent&apos;s Icon. Cobalt blue garden. Botanical beauty.", icon: '🌿', img: 'https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=1000&auto=format&fit=crop' },
     { title: 'The Food', sub: "Tagine for $5. Fresh orange juice for 40 cents. Best meal of your life.", icon: '🍲', img: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'Rooftop Marrakech', sub: 'Rooftop bars in Gueliz. Clubs in Hivernage. The Red City after dark.', icon: '🌙', img: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=1000&auto=format&fit=crop' }, // Placeholder for Rooftop
+    { title: 'Rooftop Marrakech', sub: 'Rooftop bars in Gueliz. Clubs in Hivernage. The Red City after dark.', icon: '🌙', img: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=1000&auto=format&fit=crop' },
   ];
 
   return (
-    <div style={{ fontFamily: "'Bricolage Grotesque', sans-serif", color: INKM, background: WHITE, overflowX: 'hidden' }}>
-      
-      {/* ════════════════════════════════════════
-          HERO — Cinematic & Urgent
-          ════════════════════════════════════════ */}
-      <section style={{ 
-        position: 'relative', 
-        height: '85vh', 
-        minHeight: '600px', 
-        background: NAVYD, 
-        overflow: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-      }}>
-        {/* Background Image Placeholder - Jemaa el-Fna or Riad */}
-        <img 
-          src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=2070&auto=format&fit=crop" 
+    <div className="font-body text-ink-mid bg-cream-off overflow-x-hidden">
+
+      {/* Hero Section */}
+      <section className="relative min-h-[600px] h-[85vh] flex items-center justify-center text-center bg-navy-deep">
+        <img
+          src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=2070&auto=format&fit=crop"
           alt="Jemaa el-Fnaa at night"
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'cover', 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            opacity: 0.7 
-          }}
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
         />
-        
-        {/* Dark gradient overlay */}
-        <div style={{ 
-          position: 'absolute', 
-          inset: 0, 
-          background: 'linear-gradient(to bottom, rgba(8,15,30,0.4), rgba(8,15,30,0.9))' 
-        }} />
-        
-        {/* Hero Content */}
-        <div className="container" style={{ 
-          position: 'relative', 
-          zIndex: 2, 
-          maxWidth: 900, 
-          margin: '0 auto', 
-          padding: '0 48px',
-          width: '100%',
-        }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/4 to-navy-deep/9" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12">
           <RV delay={0.1}>
-            <h1 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontWeight: 700, 
-              lineHeight: 1.05,
-              color: WHITE,
-              fontSize: 'clamp(3rem, 7vw, 6rem)',
-              marginBottom: 24,
-            }}>
+            <h1 className="font-display font-bold leading-tight text-white mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
               Marrakech.<br />
-              <em style={{ color: GOLD, fontStyle: 'italic' }}>The City That Gets Under Your Skin.</em>
+              <em className="text-gold italic">The City That Gets Under Your Skin.</em>
             </h1>
           </RV>
-          
+
           <RV delay={0.2}>
-            <p style={{
-              fontSize: '1.2rem',
-              lineHeight: 1.8,
-              color: 'rgba(255,255,255,0.7)',
-              maxWidth: 650,
-              margin: '0 auto',
-              fontWeight: 300,
-            }}>
-              Africa's most visited destination. A thousand years of living history.<br />
+            <p className="text-lg md:text-xl leading-relaxed text-white/70 max-w-2xl mx-auto font-light">
+              Africa&apos;s most visited destination. A thousand years of living history.<br />
               The food, the colour, the noise, the silence of a riad at midnight.<br />
-              Once you've been, everywhere else feels like it's missing something.
+              Once you&apos;ve been, everywhere else feels like it&apos;s missing something.
             </p>
           </RV>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          WHY NOW — Stats & Context
-          ════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: CREAMOF }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 80, alignItems: 'center' }}>
-          
-          {/* Left: Copy */}
+      {/* Why Now Section */}
+      <section className="py-20 md:py-24 bg-cream-off">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+
           <RV>
             <Label>Why Marrakech</Label>
-            <h2 style={{ 
-              fontFamily: "'Playfair Display', serif", 
-              fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
-              color: NAVY, 
-              lineHeight: 1.15, 
-              marginBottom: 32 
-            }}>
+            <h2 className="font-display font-bold text-2xl md:text-4xl text-navy mb-8" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', lineHeight: 1.15 }}>
               Why Marrakech.<br />
-              <em style={{ color: GOLD }}>Why Right Now.</em>
+              <em className="text-gold">Why Right Now.</em>
             </h2>
-            
-            <div style={{ fontSize: '1.05rem', color: INKM, lineHeight: 1.9, marginBottom: 24 }}>
-              <p style={{ marginBottom: 20 }}>
-                Morocco just overtook Egypt to become Africa's most visited country. 19.8 million tourists arrived in 2025 — a new record.
-              </p>
-              <p style={{ marginBottom: 20 }}>
-                Marrakech alone accounts for 40% of all overnight stays in Morocco. The country hosted AFCON 2025 across six world-class cities. The world watched.
-              </p>
-              <p style={{ marginBottom: 20 }}>
-                In 2030, Morocco co-hosts the FIFA World Cup with Spain and Portugal. $9.6 billion in high-speed rail. A new airport expanding from 9 million to 14.2 million passengers.
-              </p>
-              <p style={{ fontWeight: 600, color: NAVY }}>
-                The city is being built for the world. This is the moment to be here. Not after the world has fully arrived. Now.
-              </p>
+
+            <div className="text-base md:text-lg text-ink-mid leading-relaxed mb-6 space-y-5">
+              <p>Morocco just overtook Egypt to become Africa&apos;s most visited country. 19.8 million tourists arrived in 2025 — a new record.</p>
+              <p>Marrakech alone accounts for 40% of all overnight stays in Morocco. The country hosted AFCON 2025 across six world-class cities. The world watched.</p>
+              <p>In 2030, Morocco co-hosts the FIFA World Cup with Spain and Portugal. $9.6 billion in high-speed rail. A new airport expanding from 9 million to 14.2 million passengers.</p>
+              <p className="font-semibold text-navy">The city is being built for the world. This is the moment to be here. Not after the world has fully arrived. Now.</p>
             </div>
           </RV>
 
-          {/* Right: Image Grid */}
           <RV delay={0.15}>
-             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, height: '500px' }}>
-               <div style={{ background: NAVY, borderRadius: 2, overflow: 'hidden' }}>
-                 <img src="https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=800&auto=format&fit=crop" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Morocco Architecture" />
-               </div>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                 <div style={{ background: GOLD, borderRadius: 2, flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-                   <div style={{ textAlign: 'center' }}>
-                     <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '3rem', fontWeight: 700, color: NAVY }}>19.8M</div>
-                     <div style={{ fontSize: '.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.1em', color: NAVY }}>Tourists in 2025</div>
-                   </div>
-                 </div>
-                 <div style={{ background: NAVYD, borderRadius: 2, flex: 1, overflow: 'hidden' }}>
-                    <img src="https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=800&auto=format&fit=crop" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} alt="Desert" />
-                 </div>
-               </div>
-             </div>
+            <div className="grid grid-cols-2 gap-4 h-[clamp(300px,50vw,500px)]">
+              <div className="bg-navy rounded-xl overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=800&auto=format&fit=crop" alt="Morocco Architecture" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="bg-gold rounded-xl flex-1 flex items-center justify-center p-6">
+                  <div className="text-center">
+                    <div className="font-display text-3xl md:text-5xl font-bold text-navy">19.8M</div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-navy mt-2">Tourists in 2025</div>
+                  </div>
+                </div>
+                <div className="bg-navy-deep rounded-xl flex-1 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=800&auto=format&fit=crop" alt="Desert" className="w-full h-full object-cover opacity-80" />
+                </div>
+              </div>
+            </div>
           </RV>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          EXPERIENCES — Visual Grid
-          ════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: WHITE }}>
-        <div className="container" style={{ maxWidth: 1260, margin: '0 auto', padding: '0 48px' }}>
-          <RV style={{ textAlign: 'center', marginBottom: 64 }}>
+      {/* Experiences Section */}
+      <section className="py-20 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <RV className="text-center mb-16">
             <Label>The Experience</Label>
-            <h2 style={{ 
-              fontFamily: "'Playfair Display', serif", 
-              fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 3rem)', 
-              color: NAVY 
-            }}>What You Will Do.</h2>
+            <h2 className="font-display font-bold text-2xl md:text-5xl text-navy" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}>What You Will Do.</h2>
           </RV>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {experiences.map((e, i) => (
-              <RV key={i} delay={i * 0.08} style={{ 
-                background: NAVY, 
-                borderRadius: 2, 
-                minHeight: 320, 
-                position: 'relative', 
-                overflow: 'hidden',
-                group: 'hover:scale-105 transition-transform duration-500'
-              }}>
-                {/* Image Background */}
-                <img 
-                  src={e.img} 
-                  alt={e.title} 
-                  style={{ 
-                    position: 'absolute', 
-                    inset: 0, 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover', 
-                    opacity: 0.6,
-                    transition: 'opacity .3s',
-                  }} 
-                />
-                <div style={{ 
-                  position: 'absolute', 
-                  inset: 0, 
-                  background: 'linear-gradient(to top, rgba(8,15,30,0.95) 0%, rgba(8,15,30,0.4) 50%, transparent 100%)' 
-                }} />
-                
-                {/* Content */}
-                <div style={{ 
-                  position: 'absolute', 
-                  bottom: 0, 
-                  left: 0, 
-                  right: 0, 
-                  padding: 32, 
-                  zIndex: 2 
-                }}>
-                  <div style={{ fontSize: '2rem', marginBottom: 12 }}>{e.icon}</div>
-                  <h3 style={{ 
-                    fontFamily: "'Playfair Display', serif", 
-                    fontWeight: 700, 
-                    fontSize: '1.4rem', 
-                    color: WHITE, 
-                    marginBottom: 8,
-                    lineHeight: 1.2,
-                  }}>{e.title}</h3>
-                  <p style={{ 
-                    fontSize: '.9rem', 
-                    color: 'rgba(255,255,255,0.7)', 
-                    lineHeight: 1.6 
-                  }}>{e.sub}</p>
+              <RV key={i} delay={i * 0.08}>
+                <div className="bg-navy rounded-xl min-h-72 relative overflow-hidden flex flex-col justify-end">
+                  <img src={e.img} alt={e.title} className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent" />
+
+                  <div className="relative z-10 p-6 md:p-8">
+                    <div className="text-2xl mb-3">{e.icon}</div>
+                    <h3 className="font-display font-bold text-base md:text-lg text-white mb-2" style={{ lineHeight: 1.2 }}>{e.title}</h3>
+                    <p className="text-xs md:text-sm text-white/70" style={{ lineHeight: 1.6 }}>{e.sub}</p>
+                  </div>
                 </div>
               </RV>
             ))}
@@ -311,143 +172,75 @@ export default function MarrakechPage() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          VISA INFO — Practical & Clear
-          ════════════════════════════════════════ */}
-      <section style={{ padding: '100px 0', background: CREAM }}>
-        <div className="container" style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px' }}>
-          <RV style={{ textAlign: 'center', marginBottom: 48 }}>
+      {/* Visa Info Section */}
+      <section className="py-20 md:py-24 bg-cream">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <RV className="text-center mb-12">
             <Label>Travel Info</Label>
-            <h2 style={{ 
-              fontFamily: "'Playfair Display', serif", 
-              fontWeight: 700, 
-              fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
-              color: NAVY 
-            }}>Can I Visit Morocco?</h2>
+            <h2 className="font-display font-bold text-2xl md:text-4xl text-navy" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)' }}>Can I Visit Morocco?</h2>
           </RV>
-          
-          <RV delay={0.1} style={{ background: WHITE, padding: '48px', borderRadius: 2, border: '1px solid rgba(15,30,60,0.08)', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-            
-            {/* Tab 1: Nigeria */}
-            <div style={{ marginBottom: 40 }}>
-              <h3 style={{ 
-                fontFamily: "'Bricolage Grotesque', sans-serif", 
-                fontWeight: 700, 
-                fontSize: '1.2rem', 
-                color: NAVY, 
-                marginBottom: 16,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-              }}>
-                <span style={{ width: 8, height: 8, background: GOLD, borderRadius: '50%' }} />
+
+          <RV delay={0.1} className="bg-white p-10 md:p-14 rounded-xl border border-navy/6 shadow-xl">
+
+            <div className="mb-10">
+              <h3 className="font-body font-bold text-base md:text-lg text-navy mb-4 flex items-center gap-3">
+                <span className="w-2 h-2 bg-gold rounded-full" />
                 For Nigerian Passport Holders
               </h3>
-              <p style={{ fontSize: '1rem', color: INKM, lineHeight: 1.8, marginBottom: 16 }}>
-                You need a visa to visit Morocco. Two options:
-              </p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '1rem', color: INKM, lineHeight: 1.8 }}>
-                <li style={{ marginBottom: 12 }}>
-                  <strong style={{ color: NAVY }}>Option 1 — Standard Tourist Visa:</strong><br />
-                  Apply at the Moroccan embassy in Lagos or Abuja. Allows up to 90 days. Processing: approx 10 business days. Documents: valid passport, photos, bank statement, return flight, accommodation proof.
-                </li>
-                <li>
-                  <strong style={{ color: NAVY }}>Option 2 — eVisa:</strong><br />
-                  If you hold a valid UK, US, Schengen, Canadian, or Australian residency permit or multi-entry visa, you can apply entirely online. No embassy visit required. Approval by email.
-                </li>
+              <p className="text-base text-ink-mid leading-relaxed mb-4">You need a visa to visit Morocco. Two options:</p>
+              <ul className="list-none space-y-3 text-base text-ink-mid leading-relaxed">
+                <li><strong className="text-navy">Option 1 &mdash; Standard Tourist Visa:</strong><br />
+                  Apply at the Moroccan embassy in Lagos or Abuja. Allows up to 90 days. Processing: approx 10 business days. Documents: valid passport, photos, bank statement, return flight, accommodation proof.</li>
+                <li><strong className="text-navy">Option 2 &mdash; eVisa:</strong><br />
+                  If you hold a valid UK, US, Schengen, Canadian, or Australian residency permit or multi-entry visa, you can apply entirely online. No embassy visit required. Approval by email.</li>
               </ul>
-              <p style={{ fontSize: '.9rem', color: INKMU, marginTop: 16, fontStyle: 'italic' }}>
-                We help our clients prepare their booking confirmation letter as part of our service — just ask.
-              </p>
+              <p className="text-sm text-ink-muted mt-4 italic">We help our clients prepare their booking confirmation letter as part of our service &mdash; just ask.</p>
             </div>
 
-            {/* Divider */}
-            <div style={{ height: 1, background: 'rgba(15,30,60,0.08)', margin: '32px 0' }} />
+            <div className="h-px bg-navy/8 my-8" />
 
-            {/* Tab 2: International */}
             <div>
-              <h3 style={{ 
-                fontFamily: "'Bricolage Grotesque', sans-serif", 
-                fontWeight: 700, 
-                fontSize: '1.2rem', 
-                color: NAVY, 
-                marginBottom: 16,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-              }}>
-                <span style={{ width: 8, height: 8, background: GOLD, borderRadius: '50%' }} />
-                For UK, European, American & Gulf Visitors
+              <h3 className="font-body font-bold text-base md:text-lg text-navy mb-4 flex items-center gap-3">
+                <span className="w-2 h-2 bg-gold rounded-full" />
+                For UK, European, American &amp; Gulf Visitors
               </h3>
-              <p style={{ fontSize: '1rem', color: INKM, lineHeight: 1.8, marginBottom: 24 }}>
-                Most nationalities enter Morocco visa-free for up to 90 days. Your passport must be valid for at least 6 months from entry date.
-              </p>
-              <WaBtn 
-href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20check%20visa%20requirements%20for%20my%20passport">
+              <p className="text-base text-ink-mid leading-relaxed mb-6">Most nationalities enter Morocco visa-free for up to 90 days. Your passport must be valid for at least 6 months from entry date.</p>
+              <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20check%20visa%20requirements%20for%20my%20passport">
                 WhatsApp Us for Visa Help
               </WaBtn>
             </div>
-
           </RV>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════
-          FINAL CTA
-          ════════════════════════════════════════ */}
-      <section style={{ background: NAVYD, padding: '100px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, opacity: .04, backgroundImage: `url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 0L80 20L80 60L40 80L0 60L0 20Z' fill='none' stroke='%23C9973B' stroke-width='0.35'/%3E%3C/svg%3E")` }} />
-        <div className="container" style={{ maxWidth: 700, margin: '0 auto', padding: '0 48px', position: 'relative', zIndex: 1 }}>
+      {/* Final CTA */}
+      <section className="bg-navy-deep py-20 md:py-24 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-4" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 0L80 20L80 60L40 80L0 60L0 20Z' fill='none' stroke='%23C9973B' stroke-width='0.35'/%3E%3C/svg%3E")` }} />
+        <div className="relative z-10 max-w-3xl mx-auto px-6 md:px-12">
           <RV>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-              <span style={{ width: 28, height: 1, background: GOLD, display: 'block' }} />
-              <span style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontSize: '.68rem', fontWeight: 500, letterSpacing: '.22em', textTransform: 'uppercase', color: GOLD }}>Ready?</span>
-              <span style={{ width: 28, height: 1, background: GOLD, display: 'block' }} />
+            <div className="inline-flex items-center gap-4 mb-6">
+              <span className="w-7 h-px bg-gold block" />
+              <span className="font-body text-2xs font-medium tracking-widest uppercase text-gold">Ready?</span>
+              <span className="w-7 h-px bg-gold block" />
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 'clamp(2.2rem,4vw,4rem)', color: WHITE, lineHeight: 1.1, marginBottom: 16 }}>
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-white mb-4" style={{ lineHeight: 1.1 }}>
               Your Marrakech is<br />
-              <em style={{ color: GOLD }}>One Message Away.</em>
+              <em className="text-gold">One Message Away.</em>
             </h2>
-            <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,.4)', fontWeight: 300, lineHeight: 1.75, maxWidth: 440, margin: '0 auto 40px' }}>
+            <p className="text-base md:text-lg text-white/40 font-light mb-10 max-w-xl mx-auto leading-relaxed">
               Tell us your dates and what you need.<br />We will handle the rest.
             </p>
-            <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <WaBtn 
-href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip">
+            <div className="flex gap-4 justify-center flex-wrap">
+              <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip">
                 WhatsApp Us Now
               </WaBtn>
-              <a href="/contact" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                border: '1px solid rgba(255,255,255,.2)', color: WHITE,
-                fontFamily: "'Bricolage Grotesque', sans-serif",
-                fontSize: '.75rem', fontWeight: 400,
-                letterSpacing: '.14em', textTransform: 'uppercase',
-                padding: '13px 28px', borderRadius: 2, textDecoration: 'none',
-              }}>
-                Send an Enquiry →
+              <a href="/contact" className="inline-flex items-center gap-2 border border-white/20 text-white font-body text-xs font-normal tracking-widest uppercase py-3.5 px-7 rounded-md no-underline transition-colors hover:border-gold">
+                Send an Enquiry &rarr;
               </a>
             </div>
           </RV>
         </div>
       </section>
-
-      {/* Styles for responsive and animations */}
-      <style>{`
-        .container { width: 100%; box-sizing: border-box; }
-        .rv { opacity: 0; transform: translateY(24px); }
-        .rv.revealed { opacity: 1; transform: translateY(0); }
-        
-        @media (max-width: 900px) {
-          .container { padding: 0 24px !important; }
-          section { padding-left: 0 !important; padding-right: 0 !important; }
-          [style*="grid-template-columns: repeat(2"] { grid-template-columns: 1fr !important; gap: 40px !important; }
-          [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 600px) {
-          .container { padding: 0 20px !important; }
-          [style*="padding: '48px"] { padding: 32px 24px !important; }
-        }
-      `}</style>
     </div>
   );
 }
