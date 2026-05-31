@@ -189,9 +189,9 @@ export default function AboutPage() {
 
               <div className="font-body font-light text-ink-mid leading-relaxed space-y-5 mb-10"
                    style={{ fontSize: '1.02rem', lineHeight: 1.85 }}>
-                <p>Marrakech is one of the most extraordinary cities on earth. It has been drawing travellers for a thousand years. And yet — if you arrive here without a trusted contact, without someone who knows the city and understands what you actually need — you can miss the whole thing.</p>
+                <p>Marrakech is one of the most extraordinary cities on earth. It has been drawing travellers for a thousand years. And yet, if you arrive here without a trusted contact, without someone who knows the city and understands what you actually need, you can miss the whole thing.</p>
                 <p>We started Vialane Homes to be that contact. For tourists who want to experience the real Marrakech. For investors who see what this city is becoming. For anyone who deserves to be here and deserves to do it right.</p>
-                <p>We are young, we are ambitious, and we are on the ground. That is not a weakness — it is the whole point.</p>
+                <p>We are young, we are ambitious, and we are on the ground. That is not a weakness, it is the whole point.</p>
               </div>
 
               {/* Quick tags */}
@@ -349,7 +349,7 @@ export default function AboutPage() {
               <div className="relative z-10 space-y-5 font-body font-light text-ink-mid leading-relaxed"
                    style={{ fontSize: '1.02rem', lineHeight: 1.85 }}>
                 <p className="font-medium text-navy" style={{ fontWeight: 500 }}>Fair question. Here is the honest answer.</p>
-                <p>We do not have ten years of reviews. We have something harder to manufacture: we are physically here, we care deeply about getting this right, and we will work harder for you than any established agency would — because your experience is our reputation.</p>
+                <p>We do not have ten years of reviews. We have something harder to manufacture: we are physically here, we care deeply about getting this right, and we will work harder for you than any established agency would, because your experience is our reputation.</p>
                 <p>Every driver we recommend has been screened personally. Every property has been visited in person before we list it. Every service we offer is one we would be comfortable recommending to our own family.</p>
                 <p className="font-display italic text-ink-muted" style={{ fontSize: '1.1rem' }}>We are building Vialane Homes on trust. The best way to earn yours is to do excellent work.</p>
                 <p className="font-medium text-navy" style={{ fontWeight: 600 }}>And that starts with your trip.</p>
