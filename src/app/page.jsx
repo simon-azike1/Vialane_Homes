@@ -286,7 +286,7 @@ export default function Home() {
               Airport pickup. Apartments, riads &amp; villas. Car hire. Curated experiences. 24/7 concierge.<br /><br />
               Everything handled from arrival to departure.
             </p>
-            <BtnGold href="/services">Explore Our Services →</BtnGold>
+            <BtnGold href="/service">Explore Our Services →</BtnGold>
           </div>
         </RV>
 
