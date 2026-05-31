@@ -263,7 +263,7 @@ export default function Home() {
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-ink-mid font-light">
                 <p className="mb-3.5">We are a Marrakech-based hospitality and real estate company built for the international traveller and the global investor.</p>
-                <p className="mb-3.5">Founded by a Nigerian entrepreneur who lives in Marrakech, we understand what it means to navigate this city as an outsider — and how to make sure you never feel like one.</p>
+                <p className="mb-3.5">Founded by a Nigerian entrepreneur who lives in Marrakech, we understand what it means to navigate this city as an outsider, and how to make sure you never feel like one.</p>
                 <p className="mb-7">Whether you are visiting for four days or buying your first investment property, we are on the ground, we know every corner of this city, and we are available 24/7.</p>
               </div>
               <TextLink href="/about">Our Story</TextLink>
