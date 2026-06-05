@@ -2,6 +2,7 @@ import './globals.css';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer-new';
 import WaFloat from '@/components/WaFloat';
+import ScrollToTop from '@/components/ScrollToTop';
 
 export const viewport = {
   width: 'device-width',
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <main>{children}</main>
         <Footer />
         <WaFloat />
+        <ScrollToTop />
       </body>
     </html>
   );

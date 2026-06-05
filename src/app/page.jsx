@@ -77,7 +77,7 @@ function BtnGold({ href, children, target, rel, variant = 'solid' }) {
         rel={rel}
         onMouseEnter={() => setHov(true)}
         onMouseLeave={() => setHov(false)}
-        className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-sm font-body text-xs font-bold tracking-widest uppercase no-underline transition-all duration-300 border ${
+        className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-none font-body text-xs font-bold tracking-widest uppercase no-underline transition-all duration-300 border ${
           hov
             ? 'bg-white/10 border-gold text-white'
             : 'border-white/30 text-white bg-transparent'
@@ -95,7 +95,7 @@ function BtnGold({ href, children, target, rel, variant = 'solid' }) {
       rel={rel}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-sm font-body text-xs font-bold tracking-widest uppercase no-underline transition-all duration-300 ${
+      className={`inline-flex items-center justify-center gap-2 px-8 py-4 rounded-none font-body text-xs font-bold tracking-widest uppercase no-underline transition-all duration-300 ${
         hov ? 'bg-gold-light text-navy translate-y-[-2px]' : 'bg-gold text-navy translate-y-0'
       }`}
     >
@@ -150,43 +150,40 @@ export default function Home() {
               </div>
 
               <div className="animate-rise" style={{ animation: 'rise 1s ease .5s both' }}>
-                <h1 className="font-display font-black leading-none tracking-tight text-white text-5xl sm:text-6xl md:text-8xl">
-                  MARRA
+                <h1 className="font-display font-black leading-none tracking-tight text-white mb-2 md:mb-4" style={{ fontSize: mob ? 'clamp(2.5rem,10vw,4rem)' : 'clamp(3rem,6vw,5.5rem)' }}>
+                  Invest in<br />Marrakech.
                 </h1>
-                <h1 className="font-display font-black leading-none tracking-tight text-transparent ml-4 md:ml-20 mt-[-0.05em]" style={{ WebkitTextStroke: '2px #C9973B', fontSize: mob ? 'clamp(3.2rem,14vw,5rem)' : 'clamp(4rem,9vw,8.5rem)' }}>
-                  KECH.
-                </h1>
-                <p className="font-display font-normal italic text-white/45 text-xl md:text-4xl mt-3" style={{ fontSize: mob ? '1.4rem' : 'clamp(1.6rem,3vw,2.8rem)' }}>
-                  Done Right.
+                <p className="font-display font-normal italic text-gold leading-none" style={{ fontSize: mob ? 'clamp(1.5rem,5vw,2.5rem)' : 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  Earn Without Being There.
                 </p>
               </div>
 
-              <p className="text-white/55 text-sm md:text-base leading-relaxed font-light max-w-xl my-6 md:my-8 animate-rise" style={{ animation: 'rise .8s ease .7s both' }}>
-                From the moment you land to the moment you leave. Accommodation, airport transfers, car hire, curated experiences, and expert real estate investment guidance.{' '}
-                <span className="text-white/80 font-normal">One company. One number. No stress.</span>
+              <p className="text-white/65 text-sm md:text-base leading-relaxed font-normal max-w-xl my-6 md:my-8 animate-rise" style={{ animation: 'rise .8s ease .7s both' }}>
+                Vialane Homes helps Nigerian and diaspora investors buy and manage high-yield property in Marrakech , directly through developers, with full management handled after purchase. No agencies. No brokers. Just returns.
               </p>
 
               <div className="flex gap-3 flex-wrap animate-rise" style={{ animation: 'rise .8s ease .9s both' }}>
-                <BtnGold href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip" target="_blank" rel="noopener noreferrer">
-                  Plan My Trip →
+                <BtnGold href="/service" target="_self" rel="">
+                  Start Investing →
                 </BtnGold>
-                <BtnGold href="/contact" variant="outline">
-                  Invest in Morocco
+                <BtnGold href="/contact" variant="outline" target="_self" rel="">
+                  Let Us Manage Your Property
                 </BtnGold>
               </div>
             </div>
 
-            {/* Right stat panel — desktop only */}
+            {/* Right stat panel , desktop only */}
             {!mob && (
-              <div className="hidden md:flex flex-col gap-8 pl-12 border-l border-white/10 animate-rise" style={{ animation: 'rise .8s ease .65s both' }}>
+              <div className="hidden md:flex flex-col gap-10 pl-12 border-l border-white/10 animate-rise" style={{ animation: 'rise .8s ease .65s both' }}>
                 {[
-                  { num: '19.8M', label: 'Tourists in Morocco 2025' },
-                  { num: '21%', label: 'Net annual rental yield' },
-                  { num: '2030', label: 'FIFA World Cup host city' },
+                  { num: '16%', label: 'Price growth in prime Marrakech property since 2023 (Knight Frank, May 2026)' },
+                  { num: '8–14%', label: 'Gross short-term rental yields' },
+                  { num: '19.8M', label: 'Tourists visited Morocco in 2025' },
+                  { num: '2030', label: 'FIFA World Cup , Morocco is host' },
                 ].map(s => (
                   <div key={s.num}>
                     <div className="font-display font-bold text-4xl text-gold leading-none mb-1.5">{s.num}</div>
-                    <div className="text-xs font-medium tracking-widest uppercase text-white/35">{s.label}</div>
+                    <div className="text-xs font-normal tracking-[.12em] text-white/35 leading-relaxed">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -199,6 +196,49 @@ export default function Home() {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
           </svg>
+        </div>
+      </section>
+
+      {/* ══ HOW IT WORKS ══ */}
+      <section className="bg-cream-off py-16 sm:py-20 md:py-28">
+        <div className="max-w-[1260px] mx-auto px-6 md:px-12">
+          <RV className="mb-14 md:mb-20">
+            <Label>How It Works</Label>
+            <h2 className="font-display font-bold text-2xl md:text-4xl text-navy leading-tight" style={{ fontSize: mob ? '2rem' : 'clamp(2.2rem,3.5vw,3.5rem)' }}>
+              Three Steps.<br /><em className="text-gold">Then You Earn.</em>
+            </h2>
+            <p className="text-base leading-relaxed text-ink-mid font-light max-w-xl mt-4">
+              We handle the entire process , from sourcing the right property to managing it after purchase. You make the investment. We make it work.
+            </p>
+          </RV>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {[
+              {
+                n: '01',
+                title: 'We Find & Buy',
+                desc: 'We source the right property directly from developers , no agencies, no brokers. You get the right asset at the right price.',
+              },
+              {
+                n: '02',
+                title: 'We Set It Up',
+                desc: 'Professional photography, listing optimisation, pricing strategy, and guest management systems. Everything ready to earn.',
+              },
+              {
+                n: '03',
+                title: 'You Earn',
+                desc: 'We manage check-ins, cleaning, pricing, and guest comms. You get a full monthly report. No presence required.',
+              },
+            ].map((step, i) => (
+              <RV key={step.n} delay={i * 0.1} className="bg-white border border-navy/08 rounded-none p-7 md:p-10 relative">
+                <span className="font-display font-black text-5xl text-gold/15 leading-none absolute top-5 right-6">{step.n}</span>
+                <div className="relative z-10">
+                  <h3 className="font-display font-bold text-xl text-navy mb-3 leading-tight">{step.title}</h3>
+                  <p className="text-sm leading-relaxed text-ink-mid font-light">{step.desc}</p>
+                </div>
+              </RV>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -244,10 +284,11 @@ export default function Home() {
             {/* Image */}
             <RV>
               <div className="relative w-full md:w-auto">
-                <div className="aspect-[3/4] bg-[url('/founder_Vialane.jpg')] bg-center bg-cover rounded-lg overflow-hidden relative">
+                <div className="aspect-square bg-navy rounded-none overflow-hidden relative flex items-center justify-center p-8">
+                  <img src="/new-logo.png" alt="Vialane Homes Logo" className="w-3/4 h-3/4 object-contain" />
                   <div className="absolute top-5 right-5 w-16 h-16 border border-gold/30 rounded" />
                 </div>
-                {!mob && <div className="absolute bottom-0 right-0 -bottom-5 -right-5 w-25 h-25 bg-gold-pale rounded-lg -z-10" />}
+                {!mob && <div className="absolute bottom-0 right-0 -bottom-5 -right-5 w-25 h-25 bg-gold-pale rounded-none -z-10" />}
                 <div className="absolute bottom-7 sm:left-3 md:-left-6 bg-navy text-white p-5 max-w-40 shadow-2xl">
                   <strong className="font-display font-normal text-2xl text-gold block mb-1">24/7</strong>
                   <span className="text-xs text-white/50 leading-relaxed">On the ground in Marrakech</span>
@@ -262,9 +303,9 @@ export default function Home() {
                 We Are <em className="text-gold italic">Vialane Homes.</em>
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-ink-mid font-light">
-                <p className="mb-3.5">We are a Marrakech-based hospitality and real estate company built for the international traveller and the global investor.</p>
-                <p className="mb-3.5">Founded by a Nigerian entrepreneur who lives in Marrakech, we understand what it means to navigate this city as an outsider, and how to make sure you never feel like one.</p>
-                <p className="mb-7">Whether you are visiting for four days or buying your first investment property, we are on the ground, we know every corner of this city, and we are available 24/7.</p>
+                <p className="mb-3.5">Vialane Homes connects Nigerian and diaspora investors to profitable property in Marrakech , and manages those properties on their behalf after purchase.</p>
+                <p className="mb-3.5">We work directly with developers, cutting out agencies and brokers. That means better pricing, transparent deals, and no hidden fees.</p>
+                <p className="mb-7">Every owner receives a full monthly report on their returns. No surprises. We are on the ground in Marrakech, managing check-ins, cleaning, pricing, and guest communications , so you earn without being there.</p>
               </div>
               <TextLink href="/about">Our Story</TextLink>
             </RV>
@@ -299,16 +340,9 @@ export default function Home() {
               Invest in<br />Marrakech
             </h3>
             <p className="text-base leading-relaxed text-navy/65 font-light mb-8">
-              Source. Purchase. Furnish. Manage.<br />
-              21% net annual returns. Full foreign ownership.<br /><br />
-              We run the property. You collect the income.
+              High-yield property, sourced directly from developers, managed end-to-end after purchase. Full monthly transparency. No agencies, no brokers, no hidden fees.
             </p>
-            {/* <a
-              href="/invest"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-sm text-white font-body text-xs font-semibold tracking-widest uppercase no-underline bg-navy hover:bg-navy-deep transition-all duration-300"
-            >
-              Explore Investment →
-            </a> */}
+            <TextLink href="/contact" target="_blank" rel="noopener noreferrer">Explore Investment →</TextLink>
           </div>
         </RV>
       </section>
@@ -326,10 +360,10 @@ export default function Home() {
               </h2>
               <div className="border-t border-navy/10">
                 {[
-                  { strong: "Africa's most visited country", rest: " — 19.8 million tourists in 2025" },
+                  { strong: "Africa's most visited country", rest: " , 19.8 million tourists in 2025" },
                   { strong: "Ranked 6th best destination", rest: " in the world by Le Routard" },
-                  { strong: "Host city for 2030 FIFA World Cup", rest: " — property prices rising now" },
-                  { strong: "1,000 years of living history,", rest: " food, and culture — this is not a trend" },
+                  { strong: "Host city for 2030 FIFA World Cup", rest: " , property prices rising now" },
+                  { strong: "1,000 years of living history,", rest: " food, and culture , this is not a trend" },
                 ].map((pt, i) => (
                   <div key={i} className="flex items-start gap-3.5 py-4 border-b border-navy/10">
                     <span className="w-1.75 h-1.75 bg-gold flex-shrink-0 mt-1.75" style={{ transform: 'rotate(45deg)' }} />
@@ -348,8 +382,8 @@ export default function Home() {
             {/* Image */}
             <RV delay={mob ? 0 : 0.15}>
               <div className="relative">
-                <div className="aspect-video md:aspect-[4/5] bg-[url('/site%20images/Couloir-Riad-Diamond-Marrakech.webp')] bg-center bg-cover rounded-lg overflow-hidden" />
-                {!mob && <div className="absolute -bottom-5 -left-5 w-[90px] h-[90px] bg-gold-pale rounded-lg -z-10" />}
+                <div className="aspect-video md:aspect-[4/5] bg-[url('/site%20images/Couloir-Riad-Diamond-Marrakech.webp')] bg-center bg-cover rounded-none overflow-hidden" />
+                {!mob && <div className="absolute -bottom-5 -left-5 w-[90px] h-[90px] bg-gold-pale rounded-none -z-10" />}
               </div>
             </RV>
           </div>
@@ -427,9 +461,9 @@ export default function Home() {
             {[
               { image: '/site%20images/Sleep_GettyImages-1440978662_HR.avif', badge: 'Upcoming', date: 'Morocco + Spain + Portugal · 2030', title: 'FIFA World Cup 2030', desc: 'The biggest sporting event on earth is coming to Morocco. Marrakech is a host city. Over 1.2 million fans expected.' },
               { image: '/site%20images/featured-property-image-morocco-3.jpg', badge: 'Upcoming', date: 'May 7–10, 2026 · Marrakech', title: 'Caftan Week', desc: 'Traditional Moroccan kaftans meet contemporary fashion. One of the most visually spectacular events in the country.' },
-              { image: '/site%20images/Villa-Hotia_Marrakech_1_KPPM04016.jpg', badge: 'Annual · July', date: 'Annual — July · El Badi Palace', title: 'Festival National des Arts Populaires', desc: 'Fire-eaters, acrobats, folk musicians inside the walls of a 16th-century palace. Free to attend.' },
+              { image: '/site%20images/Villa-Hotia_Marrakech_1_KPPM04016.jpg', badge: 'Annual · July', date: 'Annual , July · El Badi Palace', title: 'Festival National des Arts Populaires', desc: 'Fire-eaters, acrobats, folk musicians inside the walls of a 16th-century palace. Free to attend.' },
             ].map((ev, i) => (
-              <RV key={i} delay={i * 0.1} className="bg-cream-off rounded-lg overflow-hidden border border-navy/10 cursor-pointer group">
+              <RV key={i} delay={i * 0.1} className="bg-cream-off rounded-none overflow-hidden border border-navy/10 cursor-pointer group">
                 <div className="aspect-video bg-center bg-cover relative overflow-hidden" style={{ backgroundImage: `url(${ev.image})` }}>
                   <span className="absolute top-3 left-3 bg-gold text-navy text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded">{ev.badge}</span>
                   <div className="absolute inset-0 bg-navy-deep/0 group-hover:bg-navy-deep/20 transition-all duration-300" />
@@ -469,7 +503,7 @@ export default function Home() {
           </RV>
           <RV delay={0.2}>
             <p className="text-base leading-relaxed text-white/40 max-w-xs mx-auto mb-10 font-light">
-              Tell us your dates and what you need. We will handle the rest.
+              Tell us your investment goals. We will come back to you with a personalised plan within 24 hours.
             </p>
           </RV>
           <RV delay={0.3} className="flex justify-center gap-3 flex-wrap">
@@ -477,7 +511,7 @@ export default function Home() {
               href="https://wa.me/212647574605?text=Hi%2C%20I%27m%20ready%20to%20experience%20Marrakech%20the%20right%20way"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-sm bg-[#25D366] text-white font-body text-xs font-semibold tracking-widest uppercase no-underline hover:bg-[#20BA5A] transition-all duration-300 hover:translate-y-[-2px]"
+              className="inline-flex items-center gap-2.5 px-7 py-4 rounded-none bg-[#25D366] text-white font-body text-xs font-semibold tracking-widest uppercase no-underline hover:bg-[#20BA5A] transition-all duration-300 hover:translate-y-[-2px]"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />

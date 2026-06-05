@@ -90,15 +90,14 @@ export default function AboutPage() {
 
             <p className="font-body font-light text-white/55 leading-relaxed mb-10 max-w-xl"
                style={{ fontSize: '1.05rem', animation: 'rise .8s ease .6s both' }}>
-              Founded in Marrakech by a Nigerian entrepreneur who knows what it means
-              to navigate this city as an outsider, and how to make sure you never feel like one.
+              A Marrakech-based real estate investment and property management company built for Nigerian and diaspora investors. We connect you to high-yield property, source directly from developers, and manage everything after purchase.
             </p>
 
             <div className="flex gap-3 flex-wrap" style={{ animation: 'rise .8s ease .75s both' }}>
               <a href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Vialane%20Homes"
                  target="_blank" rel="noopener noreferrer"
                  onMouseEnter={() => setHovWa(true)} onMouseLeave={() => setHovWa(false)}
-                 className="inline-flex items-center gap-2 bg-[#25D366] text-white font-body text-xs font-semibold tracking-[.14em] uppercase px-7 py-4 rounded-sm no-underline transition-all duration-200"
+                 className="inline-flex items-center gap-2 bg-[#25D366] text-white font-body text-xs font-semibold tracking-[.14em] uppercase px-7 py-4 rounded-none no-underline transition-all duration-200"
                  style={{ transform: hovWa ? 'translateY(-2px)' : 'translateY(0)' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -107,7 +106,7 @@ export default function AboutPage() {
               </a>
               <a href="#story"
                  onMouseEnter={() => setHovStory(true)} onMouseLeave={() => setHovStory(false)}
-                 className="inline-flex items-center gap-2 font-body text-xs font-normal tracking-[.14em] uppercase px-7 py-4 rounded-sm no-underline transition-all duration-200"
+                 className="inline-flex items-center gap-2 font-body text-xs font-normal tracking-[.14em] uppercase px-7 py-4 rounded-none no-underline transition-all duration-200"
                  style={{ border: `1px solid ${hovStory ? '#C9973B' : 'rgba(255,255,255,.2)'}`, color: hovStory ? '#C9973B' : 'white' }}>
                 Our Story ↓
               </a>
@@ -125,7 +124,7 @@ export default function AboutPage() {
                 { num: '24/7',  label: 'Availability' },
                 { num: '<2hr',  label: 'Response Time' },
                 { num: '100%',  label: 'Foreign Ownership' },
-                { num: '21%',   label: 'Net Annual ROI' },
+                { num: '8–14%', label: 'Gross Rental Yields' },
               ].map((s, i) => (
                 <div key={i} className="text-center px-8 py-2">
                   <div className="font-display font-bold text-gold mb-2"
@@ -151,15 +150,15 @@ export default function AboutPage() {
             <RV>
               <div className="relative">
                 {/* Outer gold border accent */}
-                <div className="absolute -top-4 -left-4 right-8 bottom-8 border border-gold/25 rounded-sm pointer-events-none z-0" />
+                <div className="absolute -top-4 -left-4 right-8 bottom-8 border border-gold/25 rounded-none pointer-events-none z-0" />
                 {/* Main image */}
-                <div className="relative z-10 aspect-[3/4] bg-gradient-to-br from-navy via-navy-deep to-[#1c0e06] rounded-sm overflow-hidden flex flex-col justify-end p-8">
+                <div className="relative z-10 aspect-[3/4] bg-gradient-to-br from-navy via-navy-deep to-[#1c0e06] rounded-none overflow-hidden flex flex-col justify-end p-8">
                   {/* Placeholder content */}
-                  <div className="relative z-10 aspect-[3/4] rounded-sm overflow-hidden flex flex-col justify-end p-8">
+                  <div className="relative z-10 aspect-[3/4] rounded-none overflow-hidden flex flex-col justify-end p-8">
   {/* Founder photo */}
   <img
     src="/founder_Vialane.jpg"
-    alt="Vialane Homes Founder — Marrakech"
+    alt="Vialane Homes Founder , Marrakech"
     className="absolute inset-0 w-full h-full object-cover object-top"
   />
   {/* Dark overlay so caption is readable */}
@@ -174,7 +173,7 @@ export default function AboutPage() {
   </div>
 </div>  </div>
                 {/* Gold offset block */}
-                <div className="absolute -bottom-5 -right-5 w-28 h-28 bg-gold-pale rounded-sm -z-10" />
+                <div className="absolute -bottom-5 -right-5 w-28 h-28 bg-gold-pale rounded-none -z-10" />
               </div>
             </RV>
 
@@ -280,25 +279,25 @@ export default function AboutPage() {
             {[
               {
                 num: '01', icon: '✦',
-                title: 'Transparency',
-                desc: 'We quote before we charge. We explain before we book. You will never see a surprise on your invoice.',
+                title: 'Direct Developer Access',
+                desc: 'We work directly with developers , no agencies, no brokers. Better pricing, transparent deals, no hidden fees.',
                 dark: false,
               },
               {
                 num: '02', icon: '◉',
-                title: 'On the Ground',
-                desc: 'We are not a remote agency working from a spreadsheet. We are in Marrakech. We know every street, every driver, every property — personally.',
+                title: 'Full-Service Management',
+                desc: 'From photography and listing to guest management, cleaning, and pricing , we run the property. You earn without being in Morocco.',
                 dark: true,
               },
               {
                 num: '03', icon: '♦',
-                title: 'Actually There For You',
-                desc: 'Our WhatsApp is not a chatbot. It is a person. We respond within 2 hours. Every time.',
+                title: 'Monthly Transparency',
+                desc: 'Full monthly performance reports with real occupancy and revenue data. No surprises. No spreadsheets hidden in a dashboard.',
                 dark: false,
               },
             ].map((val, i) => (
               <RV key={i} delay={i * 0.12}>
-                <div className="relative p-10 md:p-12 rounded-sm overflow-hidden min-h-[380px] flex flex-col"
+                <div className="relative p-10 md:p-12 rounded-none overflow-hidden min-h-[380px] flex flex-col"
                      style={{ background: val.dark ? '#0F1E3C' : '#FDFAF5', border: val.dark ? 'none' : '1px solid rgba(15,30,60,.08)' }}>
                   {/* Watermark number */}
                   <div className="absolute -top-2 right-4 font-display font-black leading-none select-none pointer-events-none"
@@ -307,7 +306,7 @@ export default function AboutPage() {
                   </div>
 
                   {/* Icon */}
-                  <div className="relative z-10 w-12 h-12 rounded-sm mb-8 flex items-center justify-center text-lg flex-shrink-0"
+                  <div className="relative z-10 w-12 h-12 rounded-none mb-8 flex items-center justify-center text-lg flex-shrink-0"
                        style={{ background: val.dark ? '#C9973B' : '#0F1E3C', color: val.dark ? '#0F1E3C' : '#C9973B' }}>
                     {val.icon}
                   </div>
@@ -342,7 +341,7 @@ export default function AboutPage() {
           </RV>
 
           <RV delay={0.1}>
-            <div className="bg-cream-off border border-navy/08 rounded-sm p-10 md:p-16 relative text-left">
+            <div className="bg-cream-off border border-navy/08 rounded-none p-10 md:p-16 relative text-left">
               {/* Opening quote */}
               <div className="absolute top-6 left-8 font-display text-7xl text-gold/20 leading-none select-none">&ldquo;</div>
 
@@ -360,7 +359,7 @@ export default function AboutPage() {
           <RV delay={0.2} className="mt-12 flex justify-center">
             <a href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20start%20planning%20my%20Marrakech%20experience"
                target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1fb956] text-white font-body text-xs font-semibold tracking-[.14em] uppercase px-8 py-4 rounded-sm no-underline transition-all duration-200 hover:-translate-y-0.5">
+               className="inline-flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1fb956] text-white font-body text-xs font-semibold tracking-[.14em] uppercase px-8 py-4 rounded-none no-underline transition-all duration-200 hover:-translate-y-0.5">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
               </svg>
@@ -399,13 +398,13 @@ export default function AboutPage() {
             </p>
           </RV>
           <RV delay={0.3} className="flex justify-center gap-3 flex-wrap">
-            <a href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20experience"
+            <a href="https://wa.me/212647574605?text=Hi%2C%20I%27m%20interested%20in%20investing%20in%20Marrakech%20property"
                target="_blank" rel="noopener noreferrer"
-               className="inline-flex items-center gap-2.5 bg-gold hover:bg-gold-light text-navy font-body text-xs font-semibold tracking-[.14em] uppercase px-8 py-4 rounded-sm no-underline transition-all duration-200 hover:-translate-y-0.5">
-              Plan My Trip →
+               className="inline-flex items-center gap-2.5 bg-gold hover:bg-gold-light text-navy font-body text-xs font-semibold tracking-[.14em] uppercase px-8 py-4 rounded-none no-underline transition-all duration-200 hover:-translate-y-0.5">
+              Start Investing →
             </a>
             <a href="/contact"
-               className="inline-flex items-center gap-2 border border-white/20 hover:border-gold text-white hover:text-gold font-body text-xs font-normal tracking-[.14em] uppercase px-8 py-4 rounded-sm no-underline transition-all duration-200">
+               className="inline-flex items-center gap-2 border border-white/20 hover:border-gold text-white hover:text-gold font-body text-xs font-normal tracking-[.14em] uppercase px-8 py-4 rounded-none no-underline transition-all duration-200">
               Send an Enquiry →
             </a>
           </RV>

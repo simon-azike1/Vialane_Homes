@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 function useReveal() {
   useEffect(() => {
     const els = document.querySelectorAll('.rv');
+
+    els.forEach(el => {
+      el.style.transition = `opacity .85s cubic-bezier(0.16,1,0.3,1) ${el.dataset.delay || 0}s, transform .85s cubic-bezier(0.16,1,0.3,1) ${el.dataset.delay || 0}s`;
+    });
+
     const io = new IntersectionObserver(
       entries => entries.forEach(e => {
         if (e.isIntersecting) {
@@ -12,23 +17,28 @@ function useReveal() {
           io.unobserve(e.target);
         }
       }),
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
     );
     els.forEach(el => io.observe(el));
     return () => io.disconnect();
   }, []);
 }
 
-function RV({ children, delay = 0, style = {}, tag = 'div', ...props }) {
-  const Tag = tag;
+function RV({ children, delay = 0, className = '', style = {}, ...props }) {
   return (
-    <Tag className="rv" style={{
-      opacity: 0, transform: 'translateY(24px)',
-      transition: `opacity .9s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform .9s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
-      ...style,
-    }} {...props}>
+    <div
+      className={`rv ${className}`}
+      data-delay={delay}
+      style={{
+        opacity: 0,
+        transform: 'translateY(24px)',
+        transition: `opacity .85s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform .85s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        ...style,
+      }}
+      {...props}>
       {children}
-    </Tag>
+    </div>
+
   );
 }
 
@@ -48,7 +58,7 @@ function WaBtn({ href, children, style = {} }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer"
        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-       className="inline-flex items-center gap-2 bg-[#25D366] text-white font-body text-xs font-semibold tracking-widest uppercase no-underline rounded-md transition-all duration-200"
+       className="inline-flex items-center gap-2 bg-[#25D366] text-white font-body text-xs font-semibold tracking-widest uppercase no-underline rounded-none transition-all duration-200"
        style={{
          transform: hov ? 'translateY(-2px)' : 'translateY(0)',
          ...style,
@@ -64,44 +74,111 @@ function WaBtn({ href, children, style = {} }) {
 export default function TourismPage() {
   useReveal();
 
-  const experiences = [
-    { title: 'Jemaa el-Fna', sub: "The World&apos;s Greatest Square. Fire dancers, storytellers, 200 food stalls.", icon: '🔥', img: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'The Souks', sub: 'A thousand stalls. Leather, spice, rugs. Put your phone down and wander.', icon: '🛍️', img: 'https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'The Hammam', sub: 'Steam room. Black soap scrub. Argan oil massage. Ancient ritual.', icon: '💆', img: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'Agafay Desert', sub: 'Semi-desert plateau just outside the city. Camel ride at golden hour.', icon: '🐫', img: 'https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'Atlas Mountains', sub: 'Snow-capped peaks. Berber villages. Hiking trails in Imlil.', icon: '⛰️', img: 'https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'Jardin Majorelle', sub: "Yves Saint Laurent&apos;s Icon. Cobalt blue garden. Botanical beauty.", icon: '🌿', img: 'https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'The Food', sub: "Tagine for $5. Fresh orange juice for 40 cents. Best meal of your life.", icon: '🍲', img: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?q=80&w=1000&auto=format&fit=crop' },
-    { title: 'Rooftop Marrakech', sub: 'Rooftop bars in Gueliz. Clubs in Hivernage. The Red City after dark.', icon: '🌙', img: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=1000&auto=format&fit=crop' },
+  const services = [
+    {
+      num: '01',
+      title: 'Villa & Apartment Rentals',
+      sub: 'Short-term stays in Vialane-managed properties across Marrakech. Fully furnished, professionally maintained, available for nightly or weekly booking. Medina riads, modern Gueliz apartments, Palmeraie villas.',
+      img: '/site%20images/luxury_villa_for_sale_in_marrakech16.jpg',
+    },
+    {
+      num: '02',
+      title: 'Car Rental',
+      sub: 'Curated vehicle hire for guests and visitors. Clean fleet, flexible pickup, available for airport transfers or full-trip use. Self-drive or with driver.',
+      img: '/site%20images/mode-transport-CAN-2025-MAROC-1024x538.jpeg.webp',
+    },
+    {
+      num: '03',
+      title: 'Airport Transfers',
+      sub: 'Private car. Named driver. Flat rate. Cold water in the car. Flight tracking for delays. WhatsApp contact for live updates.',
+      img: '/site%20images/airport.jpg',
+    },
+    {
+      num: '04',
+      title: 'Guided Experiences',
+      sub: 'Agafay Desert sunset. Atlas Mountains day trip. Authentic souk walking tour. Traditional hammam with argan oil massage. All arranged by us.',
+      img: '/site%20images/experience.jpg',
+    },
+    {
+      num: '05',
+      title: '24/7 Concierge',
+      sub: 'One WhatsApp number. Any hour. Any question. Always answered. Restaurant reservations, last-minute bookings, emergency assistance.',
+      img: '/site%20images/featured-property-image-morocco-3.jpg',
+    },
+    {
+      num: '06',
+      title: 'Event Planning',
+      sub: 'Private dinners in riads. Group celebrations. Corporate retreats. We handle location, catering, and coordination from start to finish.',
+      img: '/site%20images/Villa-Hotia_Marrakech_1_KPPM04016.jpg',
+    },
   ];
 
   return (
     <div className="font-body text-ink-mid bg-cream-off overflow-x-hidden">
 
-      {/* Hero Section */}
-      <section className="relative min-h-[600px] h-[85vh] flex items-center justify-center text-center bg-navy-deep">
-        <img
-          src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=2070&auto=format&fit=crop"
-          alt="Jemaa el-Fnaa at night"
-          className="absolute inset-0 w-full h-full object-cover opacity-70"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/4 to-navy-deep/9" />
+      {/* ══ HERO ══ */}
+      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-navy-deep py-20 sm:py-28 pb-16 md:pb-28">
+        <div className="absolute inset-0 bg-[url('/site%20images/hero_section.jpg')] bg-center bg-cover opacity-80" />
+        <div className="absolute inset-0 bg-gradient-radial from-red-900/18 via-transparent to-transparent" style={{ backgroundPosition: '70% 40%', backgroundSize: '160% 120%' }} />
+        <div className="absolute inset-0 bg-gradient-radial from-gold/10 via-transparent to-transparent" style={{ backgroundPosition: '5% 80%', backgroundSize: '100% 160%' }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/55 to-navy-deep/20" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12">
-          <RV delay={0.1}>
-            <h1 className="font-display font-bold leading-tight text-white mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
-              Marrakech.<br />
-              <em className="text-gold italic">The City That Gets Under Your Skin.</em>
-            </h1>
-          </RV>
+        <div className="relative z-10 max-w-[1260px] mx-auto w-full px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_380px] gap-10 md:gap-20 items-end">
 
-          <RV delay={0.2}>
-            <p className="text-lg md:text-xl leading-relaxed text-white/70 max-w-2xl mx-auto font-light">
-              Africa&apos;s most visited destination. A thousand years of living history.<br />
-              The food, the colour, the noise, the silence of a riad at midnight.<br />
-              Once you&apos;ve been, everywhere else feels like it&apos;s missing something.
-            </p>
-          </RV>
+            {/* Left */}
+            <div>
+              <div className="flex items-center gap-3 mb-7 animate-rise" style={{ animation: 'rise .8s ease .3s both' }}>
+                <span className="w-9 h-px bg-gold block" />
+                <span className="text-xs font-medium tracking-widest uppercase text-gold">Tourism · Marrakech</span>
+              </div>
+
+              <div className="animate-rise" style={{ animation: 'rise 1s ease .5s both' }}>
+                <h1 className="font-display font-black leading-none tracking-tight text-white mb-2 md:mb-4" style={{ fontSize: 'clamp(2.5rem,6vw,5rem)' }}>
+                  Experience<br />Marrakech.
+                </h1>
+                <p className="font-display font-normal italic text-gold leading-none" style={{ fontSize: 'clamp(1.4rem,2.5vw,2.2rem)' }}>
+                  Your Stay, Handled.
+                </p>
+              </div>
+
+              <p className="text-white/65 text-sm md:text-base leading-relaxed font-normal max-w-xl my-6 md:my-8 animate-rise" style={{ animation: 'rise .8s ease .7s both' }}>
+                Marrakech is one of the world&apos;s great travel destinations. Whether you&apos;re visiting for the first time or returning for more, Vialane Homes gives you access to the best the city has to offer , from handpicked villas and apartments to seamless transport and curated experiences.
+              </p>
+
+              <div className="flex gap-3 flex-wrap animate-rise" style={{ animation: 'rise .8s ease .9s both' }}>
+                <a href="/contact" className="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy font-body text-xs font-bold tracking-widest uppercase px-8 py-4 rounded-none no-underline transition-all duration-200 hover:-translate-y-0.5">
+                  Book Your Stay →
+                </a>
+                <a href="#our-services" className="inline-flex items-center gap-2 border border-white/22 hover:border-gold text-white hover:text-gold font-body text-xs font-normal tracking-widest uppercase px-7 py-4 rounded-none no-underline transition-all duration-200">
+                  Our Services
+                </a>
+              </div>
+            </div>
+
+            {/* Right stats panel , desktop only */}
+            <div className="hidden md:flex flex-col gap-8 pl-12 border-l border-white/10 animate-rise" style={{ animation: 'rise .8s ease .65s both' }}>
+              <div>
+                <div className="font-display font-bold text-4xl text-gold leading-none mb-1.5">19.8M</div>
+                <div className="text-xs font-normal tracking-[.12em] text-white/35 leading-relaxed">Tourists visited Morocco in 2025</div>
+              </div>
+              <div>
+                <div className="font-display font-bold text-4xl text-gold leading-none mb-1.5">40%</div>
+                <div className="text-xs font-normal tracking-[.12em] text-white/35 leading-relaxed">Of Morocco&apos;s overnight stays are in Marrakech</div>
+              </div>
+              <div>
+                <div className="font-display font-bold text-4xl text-gold leading-none mb-1.5">2030</div>
+                <div className="text-xs font-normal tracking-[.12em] text-white/35 leading-relaxed">FIFA World Cup , Morocco is host</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-7 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/25 animate-bob" style={{ animation: 'bob 2.2s ease-in-out infinite' }}>
+          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
+          </svg>
         </div>
       </section>
 
@@ -117,7 +194,7 @@ export default function TourismPage() {
             </h2>
 
             <div className="text-base md:text-lg text-ink-mid leading-relaxed mb-6 space-y-5">
-              <p>Morocco just overtook Egypt to become Africa&apos;s most visited country. 19.8 million tourists arrived in 2025 — a new record.</p>
+              <p>Morocco just overtook Egypt to become Africa&apos;s most visited country. 19.8 million tourists arrived in 2025 , a new record.</p>
               <p>Marrakech alone accounts for 40% of all overnight stays in Morocco. The country hosted AFCON 2025 across six world-class cities. The world watched.</p>
               <p>In 2030, Morocco co-hosts the FIFA World Cup with Spain and Portugal. $9.6 billion in high-speed rail. A new airport expanding from 9 million to 14.2 million passengers.</p>
               <p className="font-semibold text-navy">The city is being built for the world. This is the moment to be here. Not after the world has fully arrived. Now.</p>
@@ -126,18 +203,18 @@ export default function TourismPage() {
 
           <RV delay={0.15}>
             <div className="grid grid-cols-2 gap-4 h-[clamp(300px,50vw,500px)]">
-              <div className="bg-navy rounded-xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1590412678613-b6e77059a364?q=80&w=800&auto=format&fit=crop" alt="Morocco Architecture" className="w-full h-full object-cover" />
+              <div className="bg-navy rounded-none overflow-hidden">
+                <img src="/morocco_architecture.jpg" alt="Morocco Architecture" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-4">
-                <div className="bg-gold rounded-xl flex-1 flex items-center justify-center p-6">
+                <div className="bg-gold rounded-none flex-1 flex items-center justify-center p-6">
                   <div className="text-center">
                     <div className="font-display text-3xl md:text-5xl font-bold text-navy">19.8M</div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-navy mt-2">Tourists in 2025</div>
                   </div>
                 </div>
-                <div className="bg-navy-deep rounded-xl flex-1 overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1532296076757-0a252d6995f8?q=80&w=800&auto=format&fit=crop" alt="Desert" className="w-full h-full object-cover opacity-80" />
+                <div className="bg-navy-deep rounded-none flex-1 overflow-hidden">
+                  <img src="/morocco_desert.jpg" alt="Desert" className="w-full h-full object-cover opacity-80" />
                 </div>
               </div>
             </div>
@@ -145,26 +222,28 @@ export default function TourismPage() {
         </div>
       </section>
 
-      {/* Experiences Section */}
-      <section className="py-20 md:py-24 bg-white">
+      {/* Our Services */}
+      <section id="our-services" className="py-20 md:py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <RV className="text-center mb-16">
-            <Label>The Experience</Label>
-            <h2 className="font-display font-bold text-2xl md:text-5xl text-navy" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}>What You Will Do.</h2>
+            <Label>Our Services</Label>
+            <h2 className="font-display font-bold text-2xl md:text-5xl text-navy" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)' }}>Everything You Need.<br /><em className="text-gold">Handled.</em></h2>
+            <p className="text-base text-ink-mid font-light mt-4 max-w-xl mx-auto">From airport pickup to villa stays, car hire to curated experiences , one company, one contact, no stress.</p>
           </RV>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {experiences.map((e, i) => (
-              <RV key={i} delay={i * 0.08}>
-                <div className="bg-navy rounded-xl min-h-72 relative overflow-hidden flex flex-col justify-end">
-                  <img src={e.img} alt={e.title} className="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/40 to-transparent" />
-
-                  <div className="relative z-10 p-6 md:p-8">
-                    <div className="text-2xl mb-3">{e.icon}</div>
-                    <h3 className="font-display font-bold text-base md:text-lg text-white mb-2" style={{ lineHeight: 1.2 }}>{e.title}</h3>
-                    <p className="text-xs md:text-sm text-white/70" style={{ lineHeight: 1.6 }}>{e.sub}</p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((s, i) => (
+              <RV key={s.num} delay={i * 0.08} className="bg-white border border-navy/08 p-8 md:p-10 flex flex-col">
+                <div className="aspect-video bg-navy overflow-hidden mb-6">
+                  <img src={s.img} alt={s.title} className="w-full h-full object-cover opacity-60" />
+                </div>
+                <span className="text-xs font-semibold tracking-widest uppercase text-gold mb-3">Service {s.num}</span>
+                <h3 className="font-display font-bold text-xl text-navy mb-3 leading-tight">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-ink-mid font-light flex-1">{s.sub}</p>
+                <div className="mt-6">
+                  <a href="/contact" className="inline-flex items-center gap-2 font-body text-xs font-semibold tracking-widest uppercase text-gold no-underline border-b border-gold/30 pb-0.5 hover:border-gold transition-colors duration-200">
+                    Enquire →
+                  </a>
                 </div>
               </RV>
             ))}
@@ -173,14 +252,14 @@ export default function TourismPage() {
       </section>
 
       {/* Visa Info Section */}
-      <section className="py-20 md:py-24 bg-cream">
+      <section id="visa-info" className="py-20 md:py-24 bg-cream">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <RV className="text-center mb-12">
             <Label>Travel Info</Label>
             <h2 className="font-display font-bold text-2xl md:text-4xl text-navy" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)' }}>Can I Visit Morocco?</h2>
           </RV>
 
-          <RV delay={0.1} className="bg-white p-10 md:p-14 rounded-xl border border-navy/6 shadow-xl">
+          <RV delay={0.1} className="bg-white p-10 md:p-14 rounded-none border border-navy/6 shadow-xl">
 
             <div className="mb-10">
               <h3 className="font-body font-bold text-base md:text-lg text-navy mb-4 flex items-center gap-3">
@@ -189,12 +268,12 @@ export default function TourismPage() {
               </h3>
               <p className="text-base text-ink-mid leading-relaxed mb-4">You need a visa to visit Morocco. Two options:</p>
               <ul className="list-none space-y-3 text-base text-ink-mid leading-relaxed">
-                <li><strong className="text-navy">Option 1 &mdash; Standard Tourist Visa:</strong><br />
+                <li><strong className="text-navy">First option : Standard Tourist Visa:</strong><br />
                   Apply at the Moroccan embassy in Lagos or Abuja. Allows up to 90 days. Processing: approx 10 business days. Documents: valid passport, photos, bank statement, return flight, accommodation proof.</li>
-                <li><strong className="text-navy">Option 2 &mdash; eVisa:</strong><br />
+                <li><strong className="text-navy">Second option : eVisa:</strong><br />
                   If you hold a valid UK, US, Schengen, Canadian, or Australian residency permit or multi-entry visa, you can apply entirely online. No embassy visit required. Approval by email.</li>
               </ul>
-              <p className="text-sm text-ink-muted mt-4 italic">We help our clients prepare their booking confirmation letter as part of our service &mdash; just ask.</p>
+              <p className="text-sm text-ink-muted mt-4 italic">We help our clients prepare their booking confirmation letter as part of our service just ask.</p>
             </div>
 
             <div className="h-px bg-navy/8 my-8" />
@@ -205,9 +284,12 @@ export default function TourismPage() {
                 For UK, European, American &amp; Gulf Visitors
               </h3>
               <p className="text-base text-ink-mid leading-relaxed mb-6">Most nationalities enter Morocco visa-free for up to 90 days. Your passport must be valid for at least 6 months from entry date.</p>
-              <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20check%20visa%20requirements%20for%20my%20passport">
-                WhatsApp Us for Visa Help
-              </WaBtn>
+              <a className="group inline-flex items-center gap-3 px-8 py-4  bg-green-500 text-white font-semibold text-lg shadow-lg hover:bg-green-600 transition-all duration-300 pl-5"
+                      href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20check%20visa%20requirements%20for%20my%20passport">
+                      <i className="fab fa-whatsapp text-2xl"></i>
+                      <span>Chat with a Visa Expert</span>
+                      <span className="transform group-hover:translate-x-1 transition-transform "> → </span>
+              </a>
             </div>
           </RV>
         </div>
@@ -224,18 +306,17 @@ export default function TourismPage() {
               <span className="w-7 h-px bg-gold block" />
             </div>
             <h2 className="font-display font-bold text-3xl md:text-5xl text-white mb-4" style={{ lineHeight: 1.1 }}>
-              Your Marrakech is<br />
-              <em className="text-gold">One Message Away.</em>
+              Ready to Experience<br />Marrakech <em className="text-gold">the Right Way?</em>
             </h2>
             <p className="text-base md:text-lg text-white/40 font-light mb-10 max-w-xl mx-auto leading-relaxed">
-              Tell us your dates and what you need.<br />We will handle the rest.
+              Whether you are visiting for the first time or returning for more.<br />We handle everything from arrival to departure.
             </p>
-            <div className="flex gap-4 justify-center flex-wrap">
-              <WaBtn href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip">
-                WhatsApp Us Now
-              </WaBtn>
-              <a href="/contact" className="inline-flex items-center gap-2 border border-white/20 text-white font-body text-xs font-normal tracking-widest uppercase py-3.5 px-7 rounded-md no-underline transition-colors hover:border-gold">
-                Send an Enquiry &rarr;
+            <div className="flex gap-4 justify-center flex-wrap p-5">
+              <a href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20book%20a%20stay%20in%20Marrakecht" className="inline-flex items-center gap-2 border border-white/20 text-white font-body text-xs font-normal tracking-widest uppercase py-3.5 px-7 rounded-none no-underline transition-colors hover:border-gold">
+                 Book Your Stay →
+              </a>
+              <a href="/contact" className="inline-flex items-center gap-2 border border-white/20 text-white font-body text-xs font-normal tracking-widest uppercase py-3.5 px-7 rounded-none no-underline transition-colors hover:border-gold">
+                Get in Touch →
               </a>
             </div>
           </RV>

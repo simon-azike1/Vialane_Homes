@@ -1,19 +1,21 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const links = [
   { label: 'Home',      href: '/' },
   { label: 'About',     href: '/about' },
   { label: 'Services',  href: '/service' },
   { label: 'Marrakech', href: '/marrakech' },
-  { label: 'Events',    href: '/events' },
+  { label: 'Tourism',    href: '/tourism' },
   { label: 'Contact',   href: '/contact' },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
+  const pathname                = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -43,34 +45,42 @@ export default function Nav() {
           </span>
         </Link>
 
-        {/* Links — desktop only */}
+        {/* Links , desktop only */}
         <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
-          {links.map(l => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="font-body text-xs font-medium tracking-wider uppercase text-white/70 no-underline transition-colors duration-200 hover:text-white"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
+          {links.map(l => {
+            const isActive = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href));
+            return (
+              <li key={l.href} className="group">
+                <Link
+                  href={l.href}
+                  className={`font-body text-xs font-medium tracking-wider uppercase no-underline relative py-1 transition-colors duration-200 ${
+                    isActive ? 'text-white' : 'text-white/70 hover:text-white'
+                  }`}
+                >
+                  {l.label}
+                  <span className={`absolute bottom-0 left-0 h-px bg-gold transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
-        {/* CTA — desktop only */}
+        {/* CTA , desktop only */}
         <a
-          href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip"
+          href="https://wa.me/212647574605?text=Hi%2C%20I%27m%20interested%20in%20investing%20in%20Marrakech%20property"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-block font-body text-xs font-semibold tracking-wider uppercase bg-gold text-navy px-6 py-2.5 no-underline transition-all duration-200 hover:bg-gold-light hover:-translate-y-0.5"
         >
-          Plan My Trip
+          Start Investing
         </a>
 
-        {/* Burger — mobile only */}
+        {/* Burger , mobile only */}
         <button
           onClick={() => setOpen(o => !o)}
-          className="md:hidden flex flex-col justify-center items-center gap-1 cursor-pointer p-3 bg-navy rounded border-none"
+          className="md:hidden flex flex-col justify-center items-center gap-1 cursor-pointer p-3 bg-navy rounded-none border-none"
           aria-label="Toggle menu"
         >
           <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${open ? 'rotate-45 translate-y-1.5' : ''}`} />
@@ -84,25 +94,30 @@ export default function Nav() {
         open ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <ul className="list-none m-0 p-0 flex flex-col gap-2 mb-12">
-          {links.map(l => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="font-display text-3xl sm:text-4xl font-normal text-white/80 no-underline block py-2.5 border-b border-white/10 transition-colors duration-200 hover:text-gold"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
+          {links.map(l => {
+            const isActive = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href));
+            return (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={`font-display text-3xl sm:text-4xl font-normal no-underline block py-2.5 border-b border-white/10 transition-all duration-200 ${
+                    isActive ? 'text-gold' : 'text-white/80 hover:text-gold'
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
         <a
-          href="https://wa.me/212647574605?text=Hi%2C%20I%27d%20like%20to%20plan%20my%20Marrakech%20trip"
+          href="https://wa.me/212647574605?text=Hi%2C%20I%27m%20interested%20in%20investing%20in%20Marrakech%20property"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-gold text-navy font-body text-sm font-semibold tracking-widest uppercase px-8 py-4 no-underline text-center block rounded-md transition-all duration-200 hover:bg-gold-light hover:-translate-y-0.5"
+          className="bg-gold text-navy font-body text-sm font-semibold tracking-widest uppercase px-8 py-4 no-underline text-center block rounded-none transition-all duration-200 hover:bg-gold-light hover:-translate-y-0.5"
         >
-          Plan My Trip &rarr;
+          Start Investing →
         </a>
       </div>
     </>
