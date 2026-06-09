@@ -359,7 +359,7 @@ export default function ContactPage() {
       </section>
 
       {/* ══ FAQ ══ */}
-      <section className="py-24 md:py-32 bg-cream-off">
+      <section id="faq" className="py-24 md:py-32 bg-cream-off">
         <div className="max-w-[860px] mx-auto px-6 md:px-12">
           <RV className="mb-16">
             <Label>FAQ</Label>

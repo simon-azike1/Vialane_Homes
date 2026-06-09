@@ -169,6 +169,9 @@ export default function Home() {
                 <BtnGold href="/contact" variant="outline" target="_self" rel="">
                   Let Us Manage Your Property
                 </BtnGold>
+                <BtnGold href="/contact#faq" variant="outline" target="_self" rel="" style={{ borderColor: 'rgba(201,151,59,0.3)', color: '#C9973B' }}>
+                  FAQ
+                </BtnGold>
               </div>
             </div>
 
@@ -390,51 +393,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ SERVICES ══ */}
-      <section className="bg-navy py-16 sm:py-20 md:py-28" id="services">
-        <div className="max-w-[1260px] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-16 items-end mb-14">
-            <RV>
-              <Label>What We Do</Label>
-              <h2 className="font-display font-bold text-2xl md:text-4xl text-white leading-tight" style={{ fontSize: mob ? '2rem' : 'clamp(2.2rem,3.5vw,3.5rem)' }}>
-                Everything You Need.<br /><em className="text-gold">Handled.</em>
-              </h2>
-            </RV>
-            <RV delay={mob ? 0 : 0.15}>
-              <p className="text-base leading-relaxed text-white/40 font-light">
-                From the moment your plane lands to the moment it takes off. One company. One contact. No stress.
-              </p>
-            </RV>
-          </div>
+      {/* Why Now Section */}
+      <section className="py-20 md:py-24 bg-cream-off">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
 
-          <div className="border-t border-white/10">
-            {[
-              { n: '01', title: 'Airport Pickup & Drop-off', desc: 'Private car. Named driver. Flat rate. Cold water in the car.' },
-              { n: '02', title: 'Apartments & Riads', desc: 'Personally vetted stays. From budget to boutique. All visited in person.' },
-              { n: '03', title: 'Villas & Private Residences', desc: 'Exclusive villas with pools for families and groups.' },
-              { n: '04', title: 'Car Hire', desc: 'Self-drive or with a driver. Clean vehicles. No hidden fees.' },
-              { n: '05', title: 'Experiences & Day Trips', desc: 'Agafay Desert. Atlas Mountains. Hammam. Souk tours. All arranged.' },
-              { n: '06', title: '24/7 Concierge', desc: 'One WhatsApp number. Any hour. Any question. Always answered.' },
-            ].map((s, i) => (
-              <RV key={s.n} delay={i * 0.05} className="flex items-center gap-4 md:gap-8 py-4 md:py-6 border-b border-white/10">
-                <span className="font-display font-black text-2xl md:text-5xl text-white/10 leading-none flex-shrink-0 sm:w-14 md:w-28 text-right" style={{ fontSize: mob ? '2rem' : 'clamp(2.5rem,5vw,4.5rem)' }}>
-                  {s.n}
-                </span>
-                <span className="font-body font-medium text-base md:text-xl text-white flex-1" style={{ fontSize: mob ? '1rem' : 'clamp(.95rem,1.6vw,1.2rem)' }}>
-                  {s.title}
-                </span>
-                {!mob && (
-                  <span className="text-sm text-white/35 font-light max-w-60">
-                    {s.desc}
-                  </span>
-                )}
-                <span className="text-gold text-xl flex-shrink-0">→</span>
-              </RV>
-            ))}
-          </div>
+          <RV>
+            <Label>Why Marrakech</Label>
+            <h2 className="font-display font-bold text-2xl md:text-4xl text-navy mb-8" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', lineHeight: 1.15 }}>
+              Why Marrakech.<br />
+              <em className="text-gold">Why Right Now.</em>
+            </h2>
 
-          <RV className="text-center mt-12">
-            <BtnGold href="/services">See All Services →</BtnGold>
+            <div className="text-base md:text-lg text-ink-mid leading-relaxed mb-6 space-y-5">
+              <p>Morocco just overtook Egypt to become Africa&apos;s most visited country. 19.8 million tourists arrived in 2025 , a new record.</p>
+              <p>Marrakech alone accounts for 40% of all overnight stays in Morocco. The country hosted AFCON 2025 across six world-class cities. The world watched.</p>
+              <p>In 2030, Morocco co-hosts the FIFA World Cup with Spain and Portugal. $9.6 billion in high-speed rail. A new airport expanding from 9 million to 14.2 million passengers.</p>
+              <p className="font-semibold text-navy">The city is being built for the world. This is the moment to be here. Not after the world has fully arrived. Now.</p>
+            </div>
+          </RV>
+
+          <RV delay={0.15}>
+            <div className="grid grid-cols-2 gap-4 h-[clamp(300px,50vw,500px)]">
+              <div className="bg-navy rounded-none overflow-hidden">
+                <img src="/morocco_architecture.jpg" alt="Morocco Architecture" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="bg-gold rounded-none flex-1 flex items-center justify-center p-6">
+                  <div className="text-center">
+                    <div className="font-display text-3xl md:text-5xl font-bold text-navy">19.8M</div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-navy mt-2">Tourists in 2025</div>
+                  </div>
+                </div>
+                <div className="bg-navy-deep rounded-none flex-1 overflow-hidden">
+                  <img src="/morocco_desert.jpg" alt="Desert" className="w-full h-full object-cover opacity-80" />
+                </div>
+              </div>
+            </div>
           </RV>
         </div>
       </section>
