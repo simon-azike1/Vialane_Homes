@@ -10,13 +10,13 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Vialane Homes',
+  title: 'Vialane',
   description: 'Your complete Marrakech experience. Accommodation, airport transfers, car hire, curated experiences, and expert real estate investment guidance.',
   openGraph: {
     title: 'Vialane Homes — Marrakech, Done Right.',
     description: 'You just show up. We handle everything else.',
     url: 'https://vialanehomes.com',
-    siteName: 'Vialane Homes',
+    siteName: 'Vialane',
   },
 };
 
