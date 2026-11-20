@@ -188,7 +188,7 @@ export default function ContactPage() {
               <div className="relative">
                 {/* Founder image */}
                 <div className="aspect-[4/5] rounded-none overflow-hidden bg-gradient-to-br from-navy via-navy-deep to-[#1c0e06] relative">
-                  <img src="/founder_Vialane.jpg"
+                  <img src="/morocco_desert.jpg"
                        alt="Vialane Homes Founder"
                        className="absolute inset-0 w-full h-full object-cover object-top"
                        onError={(e) => { e.target.style.display = 'none'; }} />

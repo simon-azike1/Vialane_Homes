@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <link rel="icon" href="/new%20logo-modified.png" type="image/png" />
+        <link rel="icon" href="/logo3.png" type="image/png" />
       </head>
       <body>
         <Nav />

@@ -90,7 +90,7 @@ export default function AboutPage() {
 
             <p className="font-body font-light text-white/55 leading-relaxed mb-10 max-w-xl"
                style={{ fontSize: '1.05rem', animation: 'rise .8s ease .6s both' }}>
-              A Marrakech-based real estate investment and property management company built for Nigerian and diaspora investors. We connect you to high-yield property, source directly from developers, and manage everything after purchase.
+              A Marrakech-based real estate investment, property management, and tourism company built for diaspora and West African investors. We connect you to high-yield property, source directly from developers, and manage everything after purchase — plus curated tourism experiences for visitors.
             </p>
 
             <div className="flex gap-3 flex-wrap" style={{ animation: 'rise .8s ease .75s both' }}>
@@ -156,11 +156,11 @@ export default function AboutPage() {
                   {/* Placeholder content */}
                   <div className="relative z-10 aspect-[3/4] rounded-none overflow-hidden flex flex-col justify-end p-8">
   {/* Founder photo */}
-  <img
+  {/* <img
     src="/founder_Vialane.jpg"
     alt="Vialane Homes Founder , Marrakech"
     className="absolute inset-0 w-full h-full object-cover object-top"
-  />
+  /> */}
   {/* Dark overlay so caption is readable */}
   <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-navy-deep/20 to-transparent" />
   {/* Caption */}

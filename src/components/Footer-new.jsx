@@ -33,7 +33,7 @@ export default function Footer() {
               VIALANE<span className="text-gold">.</span>
             </Link>
             <p className="font-body font-light text-sm text-white/35 leading-relaxed max-w-sm mb-6">
-              Your Marrakech, done right. Hospitality &amp; real estate for the international traveller and global investor.
+              Your Marrakech, done right. Hospitality & real estate for the international traveller and global investor.
             </p>
             <div className="flex gap-2">
               {[

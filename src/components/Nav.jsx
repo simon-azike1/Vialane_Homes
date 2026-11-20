@@ -33,20 +33,17 @@ export default function Nav() {
       <nav className={`fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between transition-all duration-400 bg-navy md:bg-navy py-5 px-6 sm:px-12 ${
         scrolled ? 'md:bg-navy-deep md:backdrop-blur-md md:py-3.5' : 'md:bg-navy'
       }`}>
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
+{/* Logo */}
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <img
-            src="/new-logo.png"
+            src="/logo3.png"
             alt="Vialane Logo"
-            className="h-12 w-12 rounded-full object-cover"
+            className="h-20 w-20 rounded-full object-cover drop-shadow-[0_0_12px_rgba(201,151,59,0.8)] brightness-125 contrast-110 animate-logo-glow"
           />
-          <span className="font-display text-xl font-bold tracking-wider text-white">
-            VIALANE<span className="text-gold">.</span>
-          </span>
         </Link>
 
         {/* Links , desktop only */}
-        <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
+        <ul className="hidden md:flex items-center gap-6 lg:gap-8 list-none m-0 p-0 mx-8 lg:mx-12">
           {links.map(l => {
             const isActive = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href));
             return (
@@ -72,7 +69,7 @@ export default function Nav() {
           href="https://wa.me/212647574605?text=Hi%2C%20I%27m%20interested%20in%20investing%20in%20Marrakech%20property"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-block font-body text-xs font-semibold tracking-wider uppercase bg-gold text-navy px-6 py-2.5 no-underline transition-all duration-200 hover:bg-gold-light hover:-translate-y-0.5"
+          className="hidden md:inline-block shrink-0 font-body text-xs font-semibold tracking-wider uppercase bg-gold text-navy px-6 py-2.5 no-underline transition-all duration-200 hover:bg-gold-light hover:-translate-y-0.5"
         >
           Start Investing
         </a>

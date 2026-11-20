@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function useWindowWidth() {
   const [width, setWidth] = useState(1200);
@@ -123,6 +123,128 @@ function TextLink({ href, children }) {
   );
 }
 
+function AnimatedCounter({ end, suffix = '', prefix = '', label, duration = 2, className = '', ...props }) {
+  const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            const startTime = performance.now();
+            const animate = (now) => {
+              const progress = Math.min((now - startTime) / (duration * 1000), 1);
+              const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+              setCount(Math.floor(end * eased));
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              } else {
+                setCount(end);
+              }
+            };
+            requestAnimationFrame(animate);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [end, duration, hasAnimated]);
+
+  const formatted = count.toLocaleString();
+  const hasDecimal = end % 1 !== 0;
+
+  return (
+    <div ref={ref} className={className} {...props}>
+      <div className="flex items-baseline gap-1 mb-1">
+        <span className="font-display font-bold" style={{ fontSize: 'inherit' }}>
+          {prefix}{formatted}{hasDecimal && count < end ? '.' : ''}{suffix}
+        </span>
+      </div>
+      <div className="text-xs font-light text-ink-mid uppercase tracking-wider">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function RotatingHero() {
+  const [index, setIndex] = useState(0);
+  const slides = [
+    {
+      badge: 'Property Investment',
+      title: 'Invest in Marrakech.',
+      subtitle: 'Earn Without Being There.',
+      highlight: '8–14% gross yields · Direct from developers · Full management',
+    },
+    {
+      badge: 'Marrakech Living',
+      title: 'Experience Marrakech.',
+      subtitle: 'A City Like No Other.',
+      highlight: 'Riads, villas, apartments · 1,000 years of culture · 2030 World Cup host',
+    },
+    {
+      badge: 'Curated Tourism',
+      title: 'Travel Marrakech.',
+      subtitle: 'We Handle Everything.',
+      highlight: 'Airport pickup · Car hire · Experiences · 24/7 concierge',
+    },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative w-full h-[320px] md:h-[380px]">
+      {slides.map((slide, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 transition-all duration-700 ease-in-out flex flex-col justify-center items-start ${
+            i === index ? 'opacity-100 translate-y-0 z-10' : 'opacity-0 translate-y-8 -z-10 pointer-events-none'
+          }`}
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-9 h-px bg-gold block" />
+            <span className="text-xs font-medium tracking-widest uppercase text-gold">{slide.badge}</span>
+          </div>
+          <h1 className="font-display font-black leading-tight tracking-tight text-white mb-3" style={{ fontSize: 'clamp(2.2rem,7vw,4rem)' }}>
+            {slide.title}
+          </h1>
+          <p className="font-display font-normal italic text-gold leading-none mb-4" style={{ fontSize: 'clamp(1.3rem,3.5vw,2.2rem)' }}>
+            {slide.subtitle}
+          </p>
+          <p className="text-white/60 text-sm md:text-base leading-relaxed font-light max-w-xl">
+            {slide.highlight}
+          </p>
+        </div>
+      ))}
+      {/* Dots indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              i === index ? 'bg-gold w-6' : 'bg-white/30 hover:bg-white/60'
+            }`}
+            aria-label={`Slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   useReveal();
   const w = useWindowWidth();
@@ -133,7 +255,7 @@ export default function Home() {
     <div className="font-body overflow-x-hidden">
 
       {/* ══ HERO ══ */}
-      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-navy-deep py-20 sm:py-28 pb-16 md:pb-28">
+      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-navy-deep pt-10 sm:pt-16 pb-16 md:pb-28">
         <div className="absolute inset-0 bg-[url('/site%20images/hero_section.jpg')] bg-center bg-cover opacity-80" />
         <div className="absolute inset-0 bg-gradient-radial from-red-900/18 via-transparent to-transparent" style={{ backgroundPosition: '70% 40%', backgroundSize: '160% 120%' }} />
         <div className="absolute inset-0 bg-gradient-radial from-gold/10 via-transparent to-transparent" style={{ backgroundPosition: '5% 80%', backgroundSize: '100% 160%' }} />
@@ -144,33 +266,21 @@ export default function Home() {
 
             {/* Left */}
             <div>
-              <div className="flex items-center gap-3 mb-7 animate-rise" style={{ animation: 'rise .8s ease .3s both' }}>
-                <span className="w-9 h-px bg-gold block" />
-                <span className="text-xs font-medium tracking-widest uppercase text-gold">Marrakech · Morocco</span>
+              {/* Rotating Hero Content */}
+              <div className="relative h-[320px] md:h-[380px] animate-rise" style={{ animation: 'rise 1s ease .5s both' }}>
+                <RotatingHero />
               </div>
 
-              <div className="animate-rise" style={{ animation: 'rise 1s ease .5s both' }}>
-                <h1 className="font-display font-black leading-none tracking-tight text-white mb-2 md:mb-4" style={{ fontSize: mob ? 'clamp(2.5rem,10vw,4rem)' : 'clamp(3rem,6vw,5.5rem)' }}>
-                  Invest in<br />Marrakech.
-                </h1>
-                <p className="font-display font-normal italic text-gold leading-none" style={{ fontSize: mob ? 'clamp(1.5rem,5vw,2.5rem)' : 'clamp(2rem,3.5vw,3.5rem)' }}>
-                  Earn Without Being There.
-                </p>
-              </div>
-
-              <p className="text-white/65 text-sm md:text-base leading-relaxed font-normal max-w-xl my-6 md:my-8 animate-rise" style={{ animation: 'rise .8s ease .7s both' }}>
-                Vialane Homes helps Nigerian and diaspora investors buy and manage high-yield property in Marrakech , directly through developers, with full management handled after purchase. No agencies. No brokers. Just returns.
+              <p className="text-white/65 text-sm md:text-base leading-relaxed font-normal max-w-xl mt-2 md:mt-3 animate-rise" style={{ animation: 'rise .8s ease .7s both' }}>
+                Vialane Homes helps diaspora and West African investors buy, manage, and earn from high-yield property in Marrakech — plus curated tourism experiences. Direct from developers. Full management included. No agencies. No brokers.
               </p>
 
-              <div className="flex gap-3 flex-wrap animate-rise" style={{ animation: 'rise .8s ease .9s both' }}>
+              <div className="flex gap-3 flex-wrap mt-12 md:mt-14 animate-rise" style={{ animation: 'rise .8s ease .9s both' }}>
                 <BtnGold href="/service" target="_self" rel="">
-                  Start Investing →
+                  Explore Services →
                 </BtnGold>
-                <BtnGold href="/contact" variant="outline" target="_self" rel="">
-                  Let Us Manage Your Property
-                </BtnGold>
-                <BtnGold href="/contact#faq" variant="outline" target="_self" rel="" style={{ borderColor: 'rgba(201,151,59,0.3)', color: '#C9973B' }}>
-                  FAQ
+                <BtnGold href="/marrakech" variant="outline" target="_self" rel="">
+                  Discover Marrakech
                 </BtnGold>
               </div>
             </div>
@@ -179,10 +289,10 @@ export default function Home() {
             {!mob && (
               <div className="hidden md:flex flex-col gap-10 pl-12 border-l border-white/10 animate-rise" style={{ animation: 'rise .8s ease .65s both' }}>
                 {[
-                  { num: '16%', label: 'Price growth in prime Marrakech property since 2023 (Knight Frank, May 2026)' },
+                  { num: '16%', label: 'Price growth in prime Marrakech property since 2023' },
                   { num: '8–14%', label: 'Gross short-term rental yields' },
                   { num: '19.8M', label: 'Tourists visited Morocco in 2025' },
-                  { num: '2030', label: 'FIFA World Cup , Morocco is host' },
+                  { num: '2030', label: 'FIFA World Cup — Morocco is host' },
                 ].map(s => (
                   <div key={s.num}>
                     <div className="font-display font-bold text-4xl text-gold leading-none mb-1.5">{s.num}</div>
@@ -288,7 +398,7 @@ export default function Home() {
             <RV>
               <div className="relative w-full md:w-auto">
                 <div className="aspect-square bg-navy rounded-none overflow-hidden relative flex items-center justify-center p-8">
-                  <img src="/new-logo.png" alt="Vialane Homes Logo" className="w-3/4 h-3/4 object-contain" />
+                  <img src="/about3.jpg" alt="Vialane Homes Logo" className="w-3/4 h-3/4 object-contain" />
                   <div className="absolute top-5 right-5 w-16 h-16 border border-gold/30 rounded" />
                 </div>
                 {!mob && <div className="absolute bottom-0 right-0 -bottom-5 -right-5 w-25 h-25 bg-gold-pale rounded-none -z-10" />}
@@ -306,9 +416,10 @@ export default function Home() {
                 We Are <em className="text-gold italic">Vialane Homes.</em>
               </h2>
               <div className="text-base md:text-lg leading-relaxed text-ink-mid font-light">
-                <p className="mb-3.5">Vialane Homes connects Nigerian and diaspora investors to profitable property in Marrakech , and manages those properties on their behalf after purchase.</p>
+                <p className="mb-3.5">Vialane Homes connects diaspora and West African investors to profitable property in Marrakech, and manages those properties end-to-end after purchase — plus curated tourism experiences for visitors.</p>
                 <p className="mb-3.5">We work directly with developers, cutting out agencies and brokers. That means better pricing, transparent deals, and no hidden fees.</p>
-                <p className="mb-7">Every owner receives a full monthly report on their returns. No surprises. We are on the ground in Marrakech, managing check-ins, cleaning, pricing, and guest communications , so you earn without being there.</p>
+                <p className="mb-3.5">Our services span three pillars: <strong className="text-navy">Property Investment</strong> (sourcing, buying, short-term rental management), <strong className="text-navy">Tourism & Hospitality</strong> (airport transfers, accommodation, car hire, curated experiences, 24/7 concierge), and <strong className="text-navy">Marrakech Living</strong> (relocation guidance, long-term rentals, local expertise).</p>
+                <p className="mb-7">Every owner receives a full monthly report on their returns. No surprises. We are on the ground in Marrakech, managing check-ins, cleaning, pricing, and guest communications — so you earn without being there.</p>
               </div>
               <TextLink href="/about">Our Story</TextLink>
             </RV>
@@ -316,38 +427,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ DUAL OFFER ══ */}
-      <section className="grid grid-cols-1 md:grid-cols-2">
-        {/* Tourism */}
-        <RV className="bg-navy p-7 sm:p-14 md:p-16 relative overflow-hidden">
+{/* ══ TRIPLE OFFER ══ */}
+      <section className="grid grid-cols-1 md:grid-cols-3">
+        {/* Tourism - first and prominent */}
+        <RV className="bg-navy p-7 sm:p-14 md:p-16 relative overflow-hidden md:border-r md:border-white/5">
           <div className="absolute inset-0 opacity-5 bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0L60 15L60 45L30 60L0 45L0 15Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E")` }} />
-          <div className="relative z-10">
-            <div className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center text-lg mb-7 text-white">✦</div>
-            <h3 className="font-display font-bold text-white leading-tight mb-3.5" style={{ fontSize: mob ? '2rem' : 'clamp(2rem,3vw,2.8rem)' }}>
-              Experience<br />Marrakech
-            </h3>
-            <p className="text-base leading-relaxed text-white/55 font-light mb-8">
-              Airport pickup. Apartments, riads &amp; villas. Car hire. Curated experiences. 24/7 concierge.<br /><br />
-              Everything handled from arrival to departure.
-            </p>
-            <BtnGold href="/service">Explore Our Services →</BtnGold>
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center text-lg mb-7 text-white">✦</div>
+              <h3 className="font-display font-bold text-white leading-tight mb-3.5" style={{ fontSize: mob ? '1.75rem' : 'clamp(1.75rem,2.8vw,2.5rem)' }}>
+                Travel Marrakech
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed text-white/55 font-light mb-6">
+                Airport pickup · Apartments, riads & villas · Car hire · Curated experiences · 24/7 concierge.
+              </p>
+            </div>
+            </div>
+        </RV>
+
+        {/* Marrakech Living */}
+        <RV delay={mob ? 0 : 0.1} className="bg-cream-off p-7 sm:p-14 md:p-16 relative overflow-hidden md:border-r md:border-navy/5">
+          <div className="absolute inset-0 opacity-5 bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0L60 15L60 45L30 60L0 45L0 15Z' fill='none' stroke='%230F1E3C' stroke-width='0.5'/%3E%3C/svg%3E")` }} />
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-full border border-navy/15 flex items-center justify-center text-lg mb-7 text-navy">⛨</div>
+              <h3 className="font-display font-bold text-navy leading-tight mb-3.5" style={{ fontSize: mob ? '1.75rem' : 'clamp(1.75rem,2.8vw,2.5rem)' }}>
+                Experience Marrakech
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed text-ink-mid font-light mb-6">
+                1,000 years of culture · Riads, villas, apartments · UNESCO medina · 2030 World Cup host city.
+              </p>
+            </div>
+            <BtnGold href="/marrakech" variant="outline" className="w-full md:w-auto" style={{ borderColor: 'rgba(15,30,60,0.3)', color: '#0F1E3C' }}>
+              Discover Marrakech →
+            </BtnGold>
           </div>
         </RV>
 
         {/* Investment */}
-        <RV delay={mob ? 0 : 0.15} className="bg-gold p-7 sm:p-14 md:p-16 relative overflow-hidden">
+        <RV delay={mob ? 0 : 0.2} className="bg-gold p-7 sm:p-14 md:p-16 relative overflow-hidden">
           <div className="absolute inset-0 opacity-5 bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0L60 15L60 45L30 60L0 45L0 15Z' fill='none' stroke='%230F1E3C' stroke-width='0.5'/%3E%3C/svg%3E")` }} />
-          <div className="relative z-10">
-            <div className="w-12 h-12 rounded-full border border-navy/15 flex items-center justify-center text-lg mb-7 text-navy">◈</div>
-            <h3 className="font-display font-bold text-navy leading-tight mb-3.5" style={{ fontSize: mob ? '2rem' : 'clamp(2rem,3vw,2.8rem)' }}>
-              Invest in<br />Marrakech
-            </h3>
-            <p className="text-base leading-relaxed text-navy/65 font-light mb-8">
-              High-yield property, sourced directly from developers, managed end-to-end after purchase. Full monthly transparency. No agencies, no brokers, no hidden fees.
-            </p>
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <div className="w-12 h-12 rounded-full border border-navy/15 flex items-center justify-center text-lg mb-7 text-navy">◈</div>
+              <h3 className="font-display font-bold text-navy leading-tight mb-3.5" style={{ fontSize: mob ? '1.75rem' : 'clamp(1.75rem,2.8vw,2.5rem)' }}>
+                Invest in Marrakech
+              </h3>
+              <p className="text-sm md:text-base leading-relaxed text-navy/65 font-light mb-6">
+                High-yield property · Direct from developers · Full management · 8–14% yields · Monthly transparency.
+              </p>
+            </div>
             <TextLink href="/contact" target="_blank" rel="noopener noreferrer">Explore Investment →</TextLink>
           </div>
         </RV>
+</section>
+
+      {/* ══ TOURISM SERVICES SHOWCASE ══ */}
+      <section className="bg-cream-off py-16 sm:py-20 md:py-28" id="tourism-services">
+        <div className="max-w-[1260px] mx-auto px-6 md:px-12">
+          <RV className="mb-12 md:mb-16">
+            <Label>Our Tourism Services</Label>
+            <h2 className="font-display font-bold text-2xl md:text-4xl leading-tight text-navy" style={{ fontSize: mob ? '2rem' : 'clamp(2.2rem,3.5vw,3.5rem)' }}>
+              We Handle <em className="text-gold italic">Every Detail.</em>
+            </h2>
+          </RV>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { icon: '✈', title: 'Airport Transfers', desc: 'Meet & greet at RAK airport. Private cars to your riad or villa.' },
+              { icon: '🏠', title: 'Accommodation', desc: 'Curated riads, apartments & villas. Verified quality, prime locations.' },
+              { icon: '🚗', title: 'Car Hire', desc: 'Self-drive or with driver. Airport delivery, flexible terms, 24/7 support.' },
+              { icon: '✦', title: 'Experiences', desc: 'Cooking classes, desert trips, Atlas hikes, spa days, private guides.' },
+              { icon: '🛎', title: '24/7 Concierge', desc: 'Restaurant bookings, babysitting, medical, anything you need — anytime.' },
+              { icon: '📸', title: 'Content Creation', desc: 'Professional photography & video for your property or trip memories.' },
+              { icon: '🔑', title: 'Property Management', desc: 'Full STR management: listings, pricing, guests, cleaning, reporting.' },
+              { icon: '📍', title: 'Relocation Support', desc: 'Visas, banking, schools, neighborhoods — we smooth the move.' },
+            ].map((svc, i) => (
+              <RV key={i} delay={i * 0.06} className="bg-white border border-navy/08 rounded-none p-6 hover:border-gold/40 transition-colors duration-300 group">
+                <div className="text-3xl mb-4">{svc.icon}</div>
+                <h4 className="font-display font-bold text-lg text-navy mb-2 group-hover:text-gold transition-colors duration-300">{svc.title}</h4>
+                <p className="text-sm leading-relaxed text-ink-mid font-light">{svc.desc}</p>
+              </RV>
+            ))}
+          </div>
+          <RV className="text-center mt-12">
+            <BtnGold href="/service" variant="outline" style={{ borderColor: 'rgba(201,151,59,0.3)', color: '#C9973B' }}>
+              View All Services →
+            </BtnGold>
+          </RV>
+        </div>
       </section>
 
       {/* ══ WHY MARRAKECH ══ */}
@@ -393,39 +560,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Now Section */}
-      <section className="py-20 md:py-24 bg-cream-off">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+      {/* Why Now Section - Animated */}
+      <section className="py-20 md:py-28 bg-cream-off relative overflow-hidden">
+        <div className="absolute inset-0 opacity-3 bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 0L80 20L80 60L40 80L0 60L0 20Z' fill='none' stroke='%23C9973B' stroke-width='0.35'/%3E%3C/svg%3E")` }} />
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
 
-          <RV>
-            <Label>Why Marrakech</Label>
+          <RV className="lg:pl-8">
+            <Label>Why Right Now</Label>
             <h2 className="font-display font-bold text-2xl md:text-4xl text-navy mb-8" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', lineHeight: 1.15 }}>
               Why Marrakech.<br />
               <em className="text-gold">Why Right Now.</em>
             </h2>
 
-            <div className="text-base md:text-lg text-ink-mid leading-relaxed mb-6 space-y-5">
+            <div className="text-base md:text-lg text-ink-mid leading-relaxed mb-8 space-y-5">
               <p>Morocco just overtook Egypt to become Africa&apos;s most visited country. 19.8 million tourists arrived in 2025 , a new record.</p>
               <p>Marrakech alone accounts for 40% of all overnight stays in Morocco. The country hosted AFCON 2025 across six world-class cities. The world watched.</p>
               <p>In 2030, Morocco co-hosts the FIFA World Cup with Spain and Portugal. $9.6 billion in high-speed rail. A new airport expanding from 9 million to 14.2 million passengers.</p>
               <p className="font-semibold text-navy">The city is being built for the world. This is the moment to be here. Not after the world has fully arrived. Now.</p>
             </div>
+
+            {/* Animated Counter Strip */}
+            <div className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
+              <AnimatedCounter end={19800000} suffix="+" prefix="" label="Tourists in 2025" duration={2.5} />
+              <AnimatedCounter end={40} suffix="%" prefix="" label="Of Morocco overnight stays" duration={2} />
+              <AnimatedCounter end={2030} suffix="" prefix="" label="FIFA World Cup" duration={1.5} />
+              <AnimatedCounter end={14.2} suffix="M" prefix="" label="Airport capacity (passengers/yr)" duration={2} />
+            </div>
           </RV>
 
           <RV delay={0.15}>
             <div className="grid grid-cols-2 gap-4 h-[clamp(300px,50vw,500px)]">
-              <div className="bg-navy rounded-none overflow-hidden">
-                <img src="/morocco_architecture.jpg" alt="Morocco Architecture" className="w-full h-full object-cover" />
+              <div className="bg-navy rounded-none overflow-hidden relative group">
+                <img src="/morocco_architecture.jpg" alt="Morocco Architecture" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/80 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-white text-sm font-light">
+                  Historic architecture meets modern demand
+                </div>
               </div>
               <div className="flex flex-col gap-4">
-                <div className="bg-gold rounded-none flex-1 flex items-center justify-center p-6">
-                  <div className="text-center">
-                    <div className="font-display text-3xl md:text-5xl font-bold text-navy">19.8M</div>
-                    <div className="text-xs font-semibold uppercase tracking-wider text-navy mt-2">Tourists in 2025</div>
+                <div className="bg-gold rounded-none flex-1 flex items-center justify-center p-6 relative overflow-hidden group">
+                  <div className="text-center relative z-10">
+                    <AnimatedCounter end={19800000} suffix="+" prefix="" label="Tourists in 2025" duration={2.5} className="font-display text-3xl md:text-5xl font-bold text-navy" />
+                    <div className="text-xs font-semibold uppercase tracking-wider text-navy mt-2">Record-Breaking Year</div>
                   </div>
+                  <div className="absolute inset-0 bg-navy/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                <div className="bg-navy-deep rounded-none flex-1 overflow-hidden">
-                  <img src="/morocco_desert.jpg" alt="Desert" className="w-full h-full object-cover opacity-80" />
+                <div className="bg-navy-deep rounded-none flex-1 overflow-hidden relative group">
+                  <img src="/morocco_desert.jpg" alt="Desert" className="w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4 text-white/80 text-sm font-light">
+                    Gateway to the Sahara & Atlas Mountains
+                  </div>
                 </div>
               </div>
             </div>
